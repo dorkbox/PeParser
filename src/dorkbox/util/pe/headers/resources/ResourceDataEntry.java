@@ -18,37 +18,47 @@ package dorkbox.util.pe.headers.resources;
 import dorkbox.util.pe.ByteArray;
 import dorkbox.util.pe.headers.Header;
 import dorkbox.util.pe.headers.SectionTableEntry;
-import dorkbox.util.pe.types.ULong;
+import dorkbox.util.pe.types.DWORD;
 
 public class ResourceDataEntry extends Header {
 
-    public final ULong OFFSET_TO_DATA; // The address of a unit of resource data in the Resource Data area.
-    public final ULong SIZE;
-    public final ULong CODE_PAGE;
-    public final ULong RESERVED;
+    public final DWORD OFFSET_TO_DATA; // The address of a unit of resource data in the Resource Data area.
+    public final DWORD SIZE;
+    public final DWORD CODE_PAGE;
+    public final DWORD RESERVED;
 
     private final SectionTableEntry section;
 
     /**
      * @param section - necessary to know this section for when computing the location of the resource data!
      */
-    @SuppressWarnings("unused")
-    public ResourceDataEntry(ByteArray bytes, int entryOffset, SectionTableEntry section) {
+    public ResourceDataEntry(ByteArray bytes, SectionTableEntry section) {
         this.section = section;
 
-        this.OFFSET_TO_DATA = new ULong(bytes.readUInt(4), "offsetToData");
-        this.SIZE = new ULong(bytes.readUInt(4), "Size");
-        this.CODE_PAGE = new ULong(bytes.readUInt(4), "CodePage");
-        this.RESERVED = new ULong(bytes.readUInt(4), "Reserved");
+        this.OFFSET_TO_DATA = new DWORD(bytes.readUInt(4), "offsetToData");
+        this.SIZE = new DWORD(bytes.readUInt(4), "Size");
+        this.CODE_PAGE = new DWORD(bytes.readUInt(4), "CodePage");
+        this.RESERVED = new DWORD(bytes.readUInt(4), "Reserved");
     }
 
     public byte[] getData(ByteArray bytes) {
         // this is where to get the data from the ABSOLUTE position in the file!
-        int dataOffset = this.section.POINTER_TO_RAW_DATA.get() + this.OFFSET_TO_DATA.get() - this.section.VIRTUAL_ADDRESS.get();
+        long dataOffset = this.section.POINTER_TO_RAW_DATA.get().longValue() + this.OFFSET_TO_DATA.get().longValue() - this.section.VIRTUAL_ADDRESS.get().longValue();
+
+        if (dataOffset > Integer.MAX_VALUE) {
+            throw new RuntimeException("Unable to set offset to more than 2gb!");
+        }
+
         //String asHex = Integer.toHexString(dataOffset);
         int saved = bytes.position();
-        bytes.seek(dataOffset);
-        byte[] copyBytes = bytes.copyBytes(this.SIZE.get());
+        bytes.seek((int) dataOffset);
+
+        long bytesToCopyLong = this.SIZE.get().longValue();
+        if (bytesToCopyLong > Integer.MAX_VALUE) {
+            throw new RuntimeException("Unable to copy more than 2gb of bytes!");
+        }
+
+        byte[] copyBytes = bytes.copyBytes((int)bytesToCopyLong);
         bytes.seek(saved);
         return copyBytes;
     }

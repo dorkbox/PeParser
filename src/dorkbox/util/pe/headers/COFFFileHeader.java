@@ -16,31 +16,56 @@
 package dorkbox.util.pe.headers;
 
 import dorkbox.util.pe.ByteArray;
-import dorkbox.util.pe.types.ULong;
-import dorkbox.util.pe.types.ULongTimeDate;
-import dorkbox.util.pe.types.UShort;
-import dorkbox.util.pe.types.UShortCoffCharacteristics;
-import dorkbox.util.pe.types.UShortMachineType;
+import dorkbox.util.pe.types.DWORD;
+import dorkbox.util.pe.types.MachineType;
+import dorkbox.util.pe.types.CoffCharacteristics;
+import dorkbox.util.pe.types.TimeDate;
+import dorkbox.util.pe.types.WORD;
 
 public class COFFFileHeader extends Header {
 
+    // see: http://msdn.microsoft.com/en-us/library/ms809762.aspx
+
     public static final int HEADER_SIZE = 20;
 
-    public final UShortMachineType MACHINE;
-    public final UShort SECTION_NR;
-    public final ULongTimeDate TIME_DATE;
-    public final ULong POINTER_TO_SYMBOLTABLE;
-    public final ULong NUMBER_OF_SYMBOLS;
-    public final UShort SIZE_OF_OPT_HEADER;
-    public final UShortCoffCharacteristics CHARACTERISTICS;
+    /** The CPU that this file is intended for */
+    public final MachineType Machine;
+
+    /** The number of sections in the file. */
+    public final WORD NumberOfSections;
+
+    /**
+     * The time that the linker (or compiler for an OBJ file) produced this file. This field holds the number of seconds since December
+     * 31st, 1969, at 4:00 P.M. (PST)
+     */
+    public final TimeDate TimeDateStamp;
+
+    /**
+     * The file offset of the COFF symbol table. This field is only used in OBJ files and PE files with COFF debug information. PE files
+     * support multiple debug formats, so debuggers should refer to the IMAGE_DIRECTORY_ENTRY_DEBUG entry in the data directory (defined
+     * later).
+     */
+    public final DWORD PointerToSymbolTable;
+
+    /** The number of symbols in the COFF symbol table. See above. */
+    public final DWORD NumberOfSymbols;
+
+    /**
+     * The size of an optional header that can follow this structure. In OBJs, the field is 0. In executables, it is the size of the
+     * IMAGE_OPTIONAL_HEADER structure that follows this structure.
+     */
+    public final WORD SizeOfOptionalHeader;
+
+    /** Flags with information about the file. */
+    public final CoffCharacteristics Characteristics;
 
     public COFFFileHeader(ByteArray bytes) {
-        this.MACHINE    = h(new UShortMachineType(bytes.readUShort(2), "machine type"));
-        this.SECTION_NR = h(new UShort(bytes.readUShort(2), "number of sections"));
-        this.TIME_DATE  = h(new ULongTimeDate(bytes.readUInt(4), "time date stamp"));
-        this.POINTER_TO_SYMBOLTABLE = h(new ULong(bytes.readUInt(4), "pointer to symbol table"));
-        this.NUMBER_OF_SYMBOLS      = h(new ULong(bytes.readUInt(4), "number of symbols"));
-        this.SIZE_OF_OPT_HEADER = h(new UShort(bytes.readUShort(2), "size of optional header"));
-        this.CHARACTERISTICS    = h(new UShortCoffCharacteristics(bytes.readUShort(2), "characteristics"));
+        this.Machine    = h(new MachineType(bytes.readUShort(2), "machine type"));
+        this.NumberOfSections = h(new WORD(bytes.readUShort(2), "number of sections"));
+        this.TimeDateStamp  = h(new TimeDate(bytes.readUInt(4), "time date stamp"));
+        this.PointerToSymbolTable = h(new DWORD(bytes.readUInt(4), "pointer to symbol table"));
+        this.NumberOfSymbols      = h(new DWORD(bytes.readUInt(4), "number of symbols"));
+        this.SizeOfOptionalHeader = h(new WORD(bytes.readUShort(2), "size of optional header"));
+        this.Characteristics    = h(new CoffCharacteristics(bytes.readUShort(2), "characteristics"));
     }
 }

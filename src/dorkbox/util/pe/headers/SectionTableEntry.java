@@ -18,9 +18,9 @@ package dorkbox.util.pe.headers;
 import dorkbox.util.pe.ByteArray;
 import dorkbox.util.pe.types.AsciiString;
 import dorkbox.util.pe.types.HeaderDefinition;
-import dorkbox.util.pe.types.ULong;
-import dorkbox.util.pe.types.ULongSectionCharacteristics;
-import dorkbox.util.pe.types.UShort;
+import dorkbox.util.pe.types.DWORD;
+import dorkbox.util.pe.types.SectionCharacteristics;
+import dorkbox.util.pe.types.WORD;
 
 public class SectionTableEntry extends Header {
 
@@ -29,15 +29,15 @@ public class SectionTableEntry extends Header {
     public final static int ENTRY_SIZE = 40;
 
     public final AsciiString NAME;
-    public final ULong VIRTUAL_SIZE;
-    public final ULong VIRTUAL_ADDRESS;
-    public final ULong SIZE_OF_RAW_DATA;
-    public final ULong POINTER_TO_RAW_DATA;
-    public final ULong POINTER_TO_RELOCATIONS;
-    public final ULong POINTER_TO_LINE_NUMBERS;
-    public final UShort NUMBER_OF_RELOCATIONS;
-    public final UShort NUMBER_OF_LINE_NUMBERS;
-    public final ULongSectionCharacteristics CHARACTERISTICS;
+    public final DWORD VIRTUAL_SIZE;
+    public final DWORD VIRTUAL_ADDRESS;
+    public final DWORD SIZE_OF_RAW_DATA;
+    public final DWORD POINTER_TO_RAW_DATA;
+    public final DWORD POINTER_TO_RELOCATIONS;
+    public final DWORD POINTER_TO_LINE_NUMBERS;
+    public final WORD NUMBER_OF_RELOCATIONS;
+    public final WORD NUMBER_OF_LINE_NUMBERS;
+    public final SectionCharacteristics CHARACTERISTICS;
 
     @SuppressWarnings("unused")
     public SectionTableEntry(ByteArray bytes, int entryNumber, int offset, int size) {
@@ -45,16 +45,16 @@ public class SectionTableEntry extends Header {
         h(new HeaderDefinition("Section table entry: " + entryNumber));
 
         this.NAME = h(new AsciiString(bytes, 8, "name"));
-        this.VIRTUAL_SIZE = h(new ULong(bytes.readUInt(4), "virtual size"));
-        this.VIRTUAL_ADDRESS = h(new ULong(bytes.readUInt(4), "virtual address"));
+        this.VIRTUAL_SIZE = h(new DWORD(bytes.readUInt(4), "virtual size"));
+        this.VIRTUAL_ADDRESS = h(new DWORD(bytes.readUInt(4), "virtual address"));
 
-        this.SIZE_OF_RAW_DATA = h(new ULong(bytes.readUInt(4), "size of raw data"));
-        this.POINTER_TO_RAW_DATA = h(new ULong(bytes.readUInt(4), "pointer to raw data"));
-        this.POINTER_TO_RELOCATIONS = h(new ULong(bytes.readUInt(4), "pointer to relocations"));
-        this.POINTER_TO_LINE_NUMBERS = h(new ULong(bytes.readUInt(4), "pointer to line numbers"));
+        this.SIZE_OF_RAW_DATA = h(new DWORD(bytes.readUInt(4), "size of raw data"));
+        this.POINTER_TO_RAW_DATA = h(new DWORD(bytes.readUInt(4), "pointer to raw data"));
+        this.POINTER_TO_RELOCATIONS = h(new DWORD(bytes.readUInt(4), "pointer to relocations"));
+        this.POINTER_TO_LINE_NUMBERS = h(new DWORD(bytes.readUInt(4), "pointer to line numbers"));
 
-        this.NUMBER_OF_RELOCATIONS = h(new UShort(bytes.readUShort(2), "number of relocations"));
-        this.NUMBER_OF_LINE_NUMBERS = h(new UShort(bytes.readUShort(2), "number of line numbers"));
-        this.CHARACTERISTICS = h(new ULongSectionCharacteristics(bytes.readUInt(4), "characteristics"));
+        this.NUMBER_OF_RELOCATIONS = h(new WORD(bytes.readUShort(2), "number of relocations"));
+        this.NUMBER_OF_LINE_NUMBERS = h(new WORD(bytes.readUShort(2), "number of line numbers"));
+        this.CHARACTERISTICS = h(new SectionCharacteristics(bytes.readUInt(4), "characteristics"));
     }
 }

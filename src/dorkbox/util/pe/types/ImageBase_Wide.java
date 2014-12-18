@@ -16,36 +16,36 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.headers.flags.SectionCharacteristics;
+import dorkbox.util.bytes.UInteger;
+import dorkbox.util.bytes.ULong;
+import dorkbox.util.pe.misc.ImageBaseType;
 
-public class ULongSectionCharacteristics extends ByteDefinition<SectionCharacteristics[]> {
+public class ImageBase_Wide extends ByteDefinition<ULong> {
 
-    private final int value;
+    private final ULong value;
 
-    public ULongSectionCharacteristics(int value, String descriptiveName) {
+    public ImageBase_Wide(ULong value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final SectionCharacteristics[] get() {
-        return SectionCharacteristics.get(this.value);
+    public final ULong get() {
+        return this.value;
     }
 
     @Override
     public void format(StringBuilder b) {
-        SectionCharacteristics[] characteristics = get();
+        ImageBaseType imageBase = ImageBaseType.get(UInteger.valueOf(this.value.longValue()));
 
-        b.append(getDescriptiveName()).append(": ").append(OS.LINE_SEPARATOR);
+        b.append(getDescriptiveName()).append(": ")
+         .append(this.value).append(" (0x").append(this.value.toHexString()).append(") (");
 
-        if (characteristics.length > 0) {
-            for (SectionCharacteristics c : characteristics) {
-                b.append("\t * ").append(c.getDescription()).append(OS.LINE_SEPARATOR);
-            }
+        if (imageBase != null) {
+            b.append(imageBase.getDescription());
         } else {
-            b.append("\t * none").append(OS.LINE_SEPARATOR);
+            b.append("no image base default");
         }
-
-        b.append(OS.LINE_SEPARATOR);
+        b.append(")").append(OS.LINE_SEPARATOR);
     }
 }

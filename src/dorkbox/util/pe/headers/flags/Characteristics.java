@@ -18,6 +18,8 @@ package dorkbox.util.pe.headers.flags;
 import java.util.ArrayList;
 import java.util.List;
 
+import dorkbox.util.bytes.UShort;
+
 public enum Characteristics {
 
     IMAGE_FILE_RELOCS_STRIPPED("1", "Resource information is stripped from the file"),
@@ -46,15 +48,16 @@ public enum Characteristics {
         this.description = description;
     }
 
-    public static Characteristics[] get(short key) {
+    public static Characteristics[] get(UShort key) {
 //        byte[] value = Arrays.copyOfRange(headerbytes, byteDefinition.getByteStart(), byteDefinition.getByteStart() + byteDefinition.getLength());
 //        int key = LittleEndian.Int_.fromBytes(value[0], value[1], (byte)0, (byte)0);
 
         List<Characteristics> chars = new ArrayList<Characteristics>(0);
+        int keyAsInt = key.intValue();
 
         for (Characteristics c : values()) {
             long mask = Long.parseLong(c.hexValue, 16);
-            if ((key & mask) != 0) {
+            if ((keyAsInt & mask) != 0) {
                 chars.add(c);
             }
         }

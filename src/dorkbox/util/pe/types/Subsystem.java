@@ -16,25 +16,31 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.misc.MachineType;
+import dorkbox.util.bytes.UShort;
+import dorkbox.util.pe.misc.SubsystemType;
 
-public class UShortMachineType extends ByteDefinition<MachineType> {
+public class Subsystem extends ByteDefinition<SubsystemType> {
 
-    private final short value;
+    private final UShort value;
 
-    public UShortMachineType(short value, String descriptiveName) {
+    public Subsystem(UShort value, String descriptiveName) {
         super(descriptiveName);
-
         this.value = value;
     }
 
     @Override
-    public final MachineType get() {
-        return MachineType.get(this.value);
+    public final SubsystemType get() {
+        return SubsystemType.get(this.value);
     }
 
     @Override
     public void format(StringBuilder b) {
-        b.append(getDescriptiveName()).append(": ").append(get().getDescription()).append(OS.LINE_SEPARATOR);
+        SubsystemType s = get();
+
+        if (s != null) {
+            b.append(getDescriptiveName()).append(": ").append(s.getDescription()).append(OS.LINE_SEPARATOR);
+        } else {
+            b.append("ERROR, no subsystem description for value: ").append(this.value).append(OS.LINE_SEPARATOR);
+        }
     }
 }

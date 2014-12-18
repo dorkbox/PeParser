@@ -20,37 +20,39 @@ import java.util.List;
 
 import dorkbox.util.pe.ByteArray;
 import dorkbox.util.pe.misc.DirEntry;
-import dorkbox.util.pe.misc.MagicNumber;
+import dorkbox.util.pe.misc.MagicNumberType;
 import dorkbox.util.pe.types.ByteDefinition;
+import dorkbox.util.pe.types.DWORD;
 import dorkbox.util.pe.types.HeaderDefinition;
+import dorkbox.util.pe.types.ImageBase;
+import dorkbox.util.pe.types.ImageBase_Wide;
 import dorkbox.util.pe.types.ImageDataDir;
 import dorkbox.util.pe.types.ImageDataDirExtra;
-import dorkbox.util.pe.types.ULong;
-import dorkbox.util.pe.types.ULongImageBase;
-import dorkbox.util.pe.types.ULongLong;
-import dorkbox.util.pe.types.ULongLongImageBase;
-import dorkbox.util.pe.types.ULongRva;
-import dorkbox.util.pe.types.UShort;
-import dorkbox.util.pe.types.UShortDllCharacteristics;
-import dorkbox.util.pe.types.UShortMagicNumber;
-import dorkbox.util.pe.types.UShortSubsystem;
+import dorkbox.util.pe.types.MagicNumber;
+import dorkbox.util.pe.types.DWORD_WIDE;
+import dorkbox.util.pe.types.RVA;
+import dorkbox.util.pe.types.DllCharacteristics;
+import dorkbox.util.pe.types.Subsystem;
+import dorkbox.util.pe.types.WORD;
 
 public class OptionalHeader extends Header {
+
+    // see: http://msdn.microsoft.com/en-us/library/ms809762.aspx
 
     public List<ImageDataDir> tables = new ArrayList<ImageDataDir>(0);
 
     //
     // Standard fields.
     //
-    public final UShortMagicNumber MAGIC_NUMBER;
-    public final UShort MAJOR_LINKER_VERSION;
-    public final UShort MINOR_LINKER_VERSION;
-    public final ULong SIZE_OF_CODE;
-    public final ULong SIZE_OF_INIT_DATA;
-    public final ULong SIZE_OF_UNINIT_DATA;
-    public final ULong ADDR_OF_ENTRY_POINT;
-    public final ULong BASE_OF_CODE;
-    public final ULong BASE_OF_DATA;
+    public final MagicNumber MAGIC_NUMBER;
+    public final WORD MAJOR_LINKER_VERSION;
+    public final WORD MINOR_LINKER_VERSION;
+    public final DWORD SIZE_OF_CODE;
+    public final DWORD SIZE_OF_INIT_DATA;
+    public final DWORD SIZE_OF_UNINIT_DATA;
+    public final DWORD ADDR_OF_ENTRY_POINT;
+    public final DWORD BASE_OF_CODE;
+    public final DWORD BASE_OF_DATA;
 
     private boolean IS_32_BIT;
 
@@ -59,20 +61,20 @@ public class OptionalHeader extends Header {
     //
     @SuppressWarnings("rawtypes")
     public final ByteDefinition IMAGE_BASE;
-    public final ULong SECTION_ALIGNMENT;
-    public final ULong FILE_ALIGNMENT;
-    public final UShort MAJOR_OS_VERSION;
-    public final UShort MINOR_OS_VERSION;
-    public final UShort MAJOR_IMAGE_VERSION;
-    public final UShort MINOR_IMAGE_VERSION;
-    public final UShort MAJOR_SUBSYSTEM_VERSION;
-    public final UShort MINOR_SUBSYSTEM_VERSION;
-    public final ULong WIN32_VERSION_VALUE;
-    public final ULongLong SIZE_OF_IMAGE;
-    public final ULong SIZE_OF_HEADERS;
-    public final ULong CHECKSUM;
-    public final UShortSubsystem SUBSYSTEM;
-    public final UShortDllCharacteristics DLL_CHARACTERISTICS;
+    public final DWORD SECTION_ALIGNMENT;
+    public final DWORD FILE_ALIGNMENT;
+    public final WORD MAJOR_OS_VERSION;
+    public final WORD MINOR_OS_VERSION;
+    public final WORD MAJOR_IMAGE_VERSION;
+    public final WORD MINOR_IMAGE_VERSION;
+    public final WORD MAJOR_SUBSYSTEM_VERSION;
+    public final WORD MINOR_SUBSYSTEM_VERSION;
+    public final DWORD WIN32_VERSION_VALUE;
+    public final DWORD SIZE_OF_IMAGE;
+    public final DWORD SIZE_OF_HEADERS;
+    public final DWORD CHECKSUM;
+    public final Subsystem SUBSYSTEM;
+    public final DllCharacteristics DLL_CHARACTERISTICS;
     @SuppressWarnings("rawtypes")
     public final ByteDefinition SIZE_OF_STACK_RESERVE;
     @SuppressWarnings("rawtypes")
@@ -81,8 +83,8 @@ public class OptionalHeader extends Header {
     public final ByteDefinition SIZE_OF_HEAP_RESERVE;
     @SuppressWarnings("rawtypes")
     public final ByteDefinition SIZE_OF_HEAP_COMMIT;
-    public final ULong LOADER_FLAGS;
-    public final ULongRva NUMBER_OF_RVA_AND_SIZES;
+    public final DWORD LOADER_FLAGS;
+    public final RVA NUMBER_OF_RVA_AND_SIZES;
 
 
     public final ImageDataDir EXPORT_TABLE;
@@ -112,17 +114,17 @@ public class OptionalHeader extends Header {
         h(new HeaderDefinition("Standard fields"));
         bytes.mark();
 
-        this.MAGIC_NUMBER = h(new UShortMagicNumber(bytes.readUShort(2), "magic number"));
-        this.MAJOR_LINKER_VERSION = h(new UShort(bytes.readUShort(1), "major linker version"));
-        this.MINOR_LINKER_VERSION = h(new UShort(bytes.readUShort(1), "minor linker version"));
-        this.SIZE_OF_CODE = h(new ULong(bytes.readUInt(4), "size of code"));
-        this.SIZE_OF_INIT_DATA = h(new ULong(bytes.readUInt(4), "size of initialized data"));
-        this.SIZE_OF_UNINIT_DATA = h(new ULong(bytes.readUInt(4), "size of unitialized data"));
-        this.ADDR_OF_ENTRY_POINT = h(new ULong(bytes.readUInt(4), "address of entry point"));
-        this.BASE_OF_CODE = h(new ULong(bytes.readUInt(4), "address of base of code"));
-        this.BASE_OF_DATA = h(new ULong(bytes.readUInt(4), "address of base of data"));
+        this.MAGIC_NUMBER = h(new MagicNumber(bytes.readUShort(2), "magic number"));
+        this.MAJOR_LINKER_VERSION = h(new WORD(bytes.readUShort(1), "major linker version"));
+        this.MINOR_LINKER_VERSION = h(new WORD(bytes.readUShort(1), "minor linker version"));
+        this.SIZE_OF_CODE = h(new DWORD(bytes.readUInt(4), "size of code"));
+        this.SIZE_OF_INIT_DATA = h(new DWORD(bytes.readUInt(4), "size of initialized data"));
+        this.SIZE_OF_UNINIT_DATA = h(new DWORD(bytes.readUInt(4), "size of unitialized data"));
+        this.ADDR_OF_ENTRY_POINT = h(new DWORD(bytes.readUInt(4), "address of entry point"));
+        this.BASE_OF_CODE = h(new DWORD(bytes.readUInt(4), "address of base of code"));
+        this.BASE_OF_DATA = h(new DWORD(bytes.readUInt(4), "address of base of data"));
 
-        this.IS_32_BIT = this.MAGIC_NUMBER.get() == MagicNumber.PE32;
+        this.IS_32_BIT = this.MAGIC_NUMBER.get() == MagicNumberType.PE32;
 
         bytes.reset();
         if (this.IS_32_BIT) {
@@ -138,42 +140,42 @@ public class OptionalHeader extends Header {
         h(new HeaderDefinition("Windows specific fields"));
 
         if (this.IS_32_BIT) {
-            this.IMAGE_BASE = h(new ULongImageBase(bytes.readUInt(4), "image base"));
+            this.IMAGE_BASE = h(new ImageBase(bytes.readUInt(4), "image base"));
         } else {
-            this.IMAGE_BASE = h(new ULongLongImageBase(bytes.readULong(8), "image base"));
+            this.IMAGE_BASE = h(new ImageBase_Wide(bytes.readULong(8), "image base"));
         }
 
-        this.SECTION_ALIGNMENT = h(new ULong(bytes.readUInt(4), "section alignment in bytes"));
-        this.FILE_ALIGNMENT = h(new ULong(bytes.readUInt(4), "file alignment in bytes"));
+        this.SECTION_ALIGNMENT = h(new DWORD(bytes.readUInt(4), "section alignment in bytes"));
+        this.FILE_ALIGNMENT = h(new DWORD(bytes.readUInt(4), "file alignment in bytes"));
 
-        this.MAJOR_OS_VERSION = h(new UShort(bytes.readUShort(2), "major operating system version"));
-        this.MINOR_OS_VERSION = h(new UShort(bytes.readUShort(2), "minor operating system version"));
-        this.MAJOR_IMAGE_VERSION = h(new UShort(bytes.readUShort(2), "major image version"));
-        this.MINOR_IMAGE_VERSION = h(new UShort(bytes.readUShort(2), "minor image version"));
-        this.MAJOR_SUBSYSTEM_VERSION = h(new UShort(bytes.readUShort(2), "major subsystem version"));
-        this.MINOR_SUBSYSTEM_VERSION = h(new UShort(bytes.readUShort(2), "minor subsystem version"));
+        this.MAJOR_OS_VERSION = h(new WORD(bytes.readUShort(2), "major operating system version"));
+        this.MINOR_OS_VERSION = h(new WORD(bytes.readUShort(2), "minor operating system version"));
+        this.MAJOR_IMAGE_VERSION = h(new WORD(bytes.readUShort(2), "major image version"));
+        this.MINOR_IMAGE_VERSION = h(new WORD(bytes.readUShort(2), "minor image version"));
+        this.MAJOR_SUBSYSTEM_VERSION = h(new WORD(bytes.readUShort(2), "major subsystem version"));
+        this.MINOR_SUBSYSTEM_VERSION = h(new WORD(bytes.readUShort(2), "minor subsystem version"));
 
-        this.WIN32_VERSION_VALUE = h(new ULong(bytes.readUInt(4), "win32 version value (reserved, must be zero)"));
-        this.SIZE_OF_IMAGE = h(new ULongLong(bytes.readULong(4), "size of image in bytes"));
-        this.SIZE_OF_HEADERS = h(new ULong(bytes.readUInt(4), "size of headers (MS DOS stub, PE header, and section headers)"));
-        this.CHECKSUM = h(new ULong(bytes.readUInt(4), "checksum"));
-        this.SUBSYSTEM = h(new UShortSubsystem(bytes.readUShort(2), "subsystem"));
-        this.DLL_CHARACTERISTICS = h(new UShortDllCharacteristics(bytes.readUShort(2), "dll characteristics"));
+        this.WIN32_VERSION_VALUE = h(new DWORD(bytes.readUInt(4), "win32 version value (reserved, must be zero)"));
+        this.SIZE_OF_IMAGE = h(new DWORD(bytes.readUInt(4), "size of image in bytes"));
+        this.SIZE_OF_HEADERS = h(new DWORD(bytes.readUInt(4), "size of headers (MS DOS stub, PE header, and section headers)"));
+        this.CHECKSUM = h(new DWORD(bytes.readUInt(4), "checksum"));
+        this.SUBSYSTEM = h(new Subsystem(bytes.readUShort(2), "subsystem"));
+        this.DLL_CHARACTERISTICS = h(new DllCharacteristics(bytes.readUShort(2), "dll characteristics"));
 
         if (this.IS_32_BIT) {
-            this.SIZE_OF_STACK_RESERVE = h(new ULong(bytes.readUInt(4), "size of stack reserve"));
-            this.SIZE_OF_STACK_COMMIT = h(new ULong(bytes.readUInt(4), "size of stack commit"));
-            this.SIZE_OF_HEAP_RESERVE = h(new ULong(bytes.readUInt(4), "size of heap reserve"));
-            this.SIZE_OF_HEAP_COMMIT = h(new ULong(bytes.readUInt(4), "size of heap commit"));
+            this.SIZE_OF_STACK_RESERVE = h(new DWORD(bytes.readUInt(4), "size of stack reserve"));
+            this.SIZE_OF_STACK_COMMIT = h(new DWORD(bytes.readUInt(4), "size of stack commit"));
+            this.SIZE_OF_HEAP_RESERVE = h(new DWORD(bytes.readUInt(4), "size of heap reserve"));
+            this.SIZE_OF_HEAP_COMMIT = h(new DWORD(bytes.readUInt(4), "size of heap commit"));
         } else {
-            this.SIZE_OF_STACK_RESERVE = h(new ULongLong(bytes.readULong(8), "size of stack reserve"));
-            this.SIZE_OF_STACK_COMMIT = h(new ULongLong(bytes.readULong(8), "size of stack commit"));
-            this.SIZE_OF_HEAP_RESERVE = h(new ULongLong(bytes.readULong(8), "size of heap reserve"));
-            this.SIZE_OF_HEAP_COMMIT = h(new ULongLong(bytes.readULong(8), "size of heap commit"));
+            this.SIZE_OF_STACK_RESERVE = h(new DWORD_WIDE(bytes.readULong(8), "size of stack reserve"));
+            this.SIZE_OF_STACK_COMMIT = h(new DWORD_WIDE(bytes.readULong(8), "size of stack commit"));
+            this.SIZE_OF_HEAP_RESERVE = h(new DWORD_WIDE(bytes.readULong(8), "size of heap reserve"));
+            this.SIZE_OF_HEAP_COMMIT = h(new DWORD_WIDE(bytes.readULong(8), "size of heap commit"));
         }
 
-        this.LOADER_FLAGS = h(new ULong(bytes.readUInt(4), "loader flags (reserved, must be zero)"));
-        this.NUMBER_OF_RVA_AND_SIZES = h(new ULongRva(bytes.readUInt(4), "number of rva and sizes"));
+        this.LOADER_FLAGS = h(new DWORD(bytes.readUInt(4), "loader flags (reserved, must be zero)"));
+        this.NUMBER_OF_RVA_AND_SIZES = h(new RVA(bytes.readUInt(4), "number of rva and sizes"));
 
 
         bytes.reset();

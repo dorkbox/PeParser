@@ -18,7 +18,9 @@ package dorkbox.util.pe.headers.flags;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum SectionCharacteristics {
+import dorkbox.util.bytes.UInteger;
+
+public enum SectionCharacteristicsType {
 
     IMAGE_SCN_TYPE_NO_PAD("8", "The section should not be padded to the next boundary. DEPRECATED"),
     IMAGE_SCN_CNT_CODE("20", "The section contains executable code."),
@@ -57,22 +59,23 @@ public enum SectionCharacteristics {
     private final String hexValue;
     private final String description;
 
-    SectionCharacteristics(String hexValue, String description) {
+    SectionCharacteristicsType(String hexValue, String description) {
         this.hexValue = hexValue;
         this.description = description;
     }
 
-    public static SectionCharacteristics[] get(int key) {
-        List<SectionCharacteristics> chars = new ArrayList<SectionCharacteristics>(0);
+    public static SectionCharacteristicsType[] get(UInteger key) {
+        List<SectionCharacteristicsType> chars = new ArrayList<SectionCharacteristicsType>(0);
+        long keyAsLong = key.longValue();
 
-        for (SectionCharacteristics c : values()) {
+        for (SectionCharacteristicsType c : values()) {
             long mask = Long.parseLong(c.hexValue, 16);
-            if ((key & mask) != 0) {
+            if ((keyAsLong & mask) != 0) {
                 chars.add(c);
             }
         }
 
-        return chars.toArray(new SectionCharacteristics[0]);
+        return chars.toArray(new SectionCharacteristicsType[0]);
     }
 
     public String getDescription() {

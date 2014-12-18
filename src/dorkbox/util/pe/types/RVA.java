@@ -15,27 +15,27 @@
  */
 package dorkbox.util.pe.types;
 
-import java.util.Date;
-
 import dorkbox.util.OS;
+import dorkbox.util.bytes.UInteger;
 
-public class ULongTimeDate extends ByteDefinition<Date> {
+public class RVA extends ByteDefinition<UInteger> {
 
-    private final int value;
+    private final UInteger value;
 
-    public ULongTimeDate(int value, String descriptiveName) {
+    public RVA(UInteger value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final Date get() {
-        long millis = (long) this.value * 1000;
-        return new Date(millis);
+    public final UInteger get() {
+        return this.value;
     }
 
     @Override
     public void format(StringBuilder b) {
-        b.append(getDescriptiveName()).append(": ").append(get().toString()).append(OS.LINE_SEPARATOR);
+        b.append(getDescriptiveName()).append(": ")
+         .append(this.value.longValue())
+         .append(OS.LINE_SEPARATOR);
     }
 }

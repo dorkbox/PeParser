@@ -15,7 +15,9 @@
  */
 package dorkbox.util.pe.misc;
 
-public enum MachineType {
+import dorkbox.util.bytes.UShort;
+
+public enum MachineTypeType {
 
     NONE("", "No specified machine type"),
     IMAGE_FILE_MACHINE_UNKNOWN("0", "the contents of this field are assumed to be applicable for any machine type"),
@@ -44,15 +46,15 @@ public enum MachineType {
     private final String hexValue;
     private final String description;
 
-    MachineType(String hexValue, String description) {
+    MachineTypeType(String hexValue, String description) {
         this.hexValue = hexValue;
         this.description = description;
     }
 
-    public static MachineType get(short value) {
-        String key = Integer.toHexString(value);
+    public static MachineTypeType get(UShort value) {
+        String key = value.toHexString();
 
-        for (MachineType mt : values()) {
+        for (MachineTypeType mt : values()) {
             if (key.equals(mt.hexValue)) {
                 return mt;
             }

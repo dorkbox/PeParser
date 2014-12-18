@@ -19,39 +19,44 @@ import java.io.ByteArrayInputStream;
 
 import dorkbox.util.OS;
 import dorkbox.util.bytes.LittleEndian;
+import dorkbox.util.bytes.UByte;
+import dorkbox.util.bytes.UInteger;
+import dorkbox.util.bytes.ULong;
+import dorkbox.util.bytes.UShort;
 
 public class ByteArray extends ByteArrayInputStream {
     /** size of the headers, when done reading */
-//    public int pos = 0;
+//    public int pos = 0; (we just use the bais pos)
 
     public ByteArray(byte[] bytes) {
         super(bytes);
     }
 
     public String readAsciiString(int length) {
+        // pos is incremented by the copybytes method
         return new String(copyBytes(length), OS.US_ASCII).trim();
     }
 
-    public long readULong(int length) {
-        int result = LittleEndian.ULong_.fromBytes(this.buf, this.pos, length);
+    public ULong readULong(int length) {
+        ULong result = LittleEndian.ULong_.from(this.buf, this.pos, length);
         this.pos += length;
         return result;
     }
 
-    public int readUInt(int length) {
-        int result = LittleEndian.UInt_.fromBytes(this.buf, this.pos, length);
+    public UInteger readUInt(int length) {
+        UInteger result = LittleEndian.UInt_.from(this.buf, this.pos, length);
         this.pos += length;
         return result;
     }
 
-    public short readUShort(int length) {
-        short result = LittleEndian.UShort_.fromBytes(this.buf, this.pos, length);
+    public UShort readUShort(int length) {
+        UShort result = LittleEndian.UShort_.from(this.buf, this.pos, length);
         this.pos += length;
         return result;
     }
 
-    public byte readUByte() {
-        byte b = (byte) (this.buf[this.pos] & 0xFF);
+    public UByte readUByte() {
+        UByte b = UByte.valueOf(this.buf[this.pos]);
         this.pos++;
         return b;
     }
@@ -70,8 +75,8 @@ public class ByteArray extends ByteArrayInputStream {
         super.mark(0);
     }
 
-    public void seek(long position) {
-        this.pos = (int) position;
+    public void seek(int position) {
+        this.pos = position;
     }
 
     public int position() {

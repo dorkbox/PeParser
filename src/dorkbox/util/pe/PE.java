@@ -88,18 +88,18 @@ public class PE {
             this.coffHeader = new COFFFileHeader(this.fileBytes);
             this.optionalHeader = new OptionalHeader(this.fileBytes);
 
-            int numberOfEntries = this.coffHeader.SECTION_NR.get();
+            int numberOfEntries = this.coffHeader.NumberOfSections.get().intValue();
             this.sectionTable = new SectionTable(this.fileBytes, numberOfEntries);
 
             // now the bytes are positioned at the start of the section table. ALl other info MUST be done relative to byte offsets/locations!
 
             // fixup directory names -> table names (from spec!)
             for (SectionTableEntry section : this.sectionTable.sections) {
-                int sectionAddress = section.VIRTUAL_ADDRESS.get();
-                int sectionSize = section.SIZE_OF_RAW_DATA.get();
+                long sectionAddress = section.VIRTUAL_ADDRESS.get().longValue();
+                long sectionSize = section.SIZE_OF_RAW_DATA.get().longValue();
 
                 for (ImageDataDir entry : this.optionalHeader.tables) {
-                    int optionAddress = entry.get();
+                    long optionAddress = entry.get().longValue();
 
                     if (sectionAddress <= optionAddress &&
                         sectionAddress + sectionSize > optionAddress) {
@@ -115,9 +115,14 @@ public class PE {
                 if (entry.getType() == DirEntry.RESOURCE) {
                     // fixup resources
                     SectionTableEntry section = entry.getSection();
-                    int delta = section.VIRTUAL_ADDRESS.get() - section.POINTER_TO_RAW_DATA.get();
-                    int offsetInFile = entry.get() - delta;
-                    this.fileBytes.seek(offsetInFile);
+                    long delta = section.VIRTUAL_ADDRESS.get().longValue() - section.POINTER_TO_RAW_DATA.get().longValue();
+                    long offsetInFile = entry.get().longValue() - delta;
+
+                    if (offsetInFile > Integer.MAX_VALUE) {
+                        throw new RuntimeException("Unable to set offset to more than 2gb!");
+                    }
+
+                    this.fileBytes.seek((int) offsetInFile);
                     this.fileBytes.mark(); // resource data is offset from the beginning of the header!
 
                     Header root = new ResourceDirectoryHeader(this.fileBytes, section, 0);
@@ -175,7 +180,7 @@ public class PE {
     private int getPEOffset() {
         this.fileBytes.mark();
         this.fileBytes.seek(PE_OFFSET_LOCATION);
-        int read = this.fileBytes.readUShort(2);
+        int read = this.fileBytes.readUShort(2).intValue();
         this.fileBytes.reset();
         return read;
     }
@@ -231,7 +236,7 @@ public class PE {
         } else {
             // this is what we are looking for!
             ResourceDataEntry dataEntry = entry.resourceDataEntry;
-            if (check == null || check.SIZE.get() < dataEntry.SIZE.get()) {
+            if (check == null || check.SIZE.get().longValue() < dataEntry.SIZE.get().longValue()) {
                 return dataEntry;
             }
         }

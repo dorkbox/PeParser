@@ -16,20 +16,21 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.misc.MagicNumber;
+import dorkbox.util.bytes.UShort;
+import dorkbox.util.pe.misc.MagicNumberType;
 
-public class UShortMagicNumber extends ByteDefinition<MagicNumber> {
+public class MagicNumber extends ByteDefinition<MagicNumberType> {
 
-    private final short value;
+    private final UShort value;
 
-    public UShortMagicNumber(short value, String descriptiveName) {
+    public MagicNumber(UShort value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final MagicNumber get() {
-        return MagicNumber.get(this.value);
+    public final MagicNumberType get() {
+        return MagicNumberType.get(this.value);
     }
 
     @Override

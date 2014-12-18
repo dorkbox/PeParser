@@ -16,25 +16,26 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
+import dorkbox.util.bytes.UShort;
+import dorkbox.util.pe.misc.MachineTypeType;
 
-public class ULong extends ByteDefinition<Integer> {
+public class MachineType extends ByteDefinition<MachineTypeType> {
 
-    private final int value;
+    private final UShort value;
 
-    public ULong(int value, String descriptiveName) {
+    public MachineType(UShort value, String descriptiveName) {
         super(descriptiveName);
+
         this.value = value;
     }
 
     @Override
-    public final Integer get() {
-        return this.value;
+    public final MachineTypeType get() {
+        return MachineTypeType.get(this.value);
     }
 
     @Override
     public void format(StringBuilder b) {
-        b.append(getDescriptiveName()).append(": ")
-         .append(this.value).append(" (0x").append(Integer.toHexString(this.value)).append(")")
-         .append(OS.LINE_SEPARATOR);
+        b.append(getDescriptiveName()).append(": ").append(get().getDescription()).append(OS.LINE_SEPARATOR);
     }
 }

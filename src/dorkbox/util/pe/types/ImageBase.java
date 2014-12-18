@@ -15,31 +15,35 @@
  */
 package dorkbox.util.pe.types;
 
-import java.util.Arrays;
-
 import dorkbox.util.OS;
-import dorkbox.util.bytes.LittleEndian;
+import dorkbox.util.bytes.UInteger;
+import dorkbox.util.pe.misc.ImageBaseType;
 
-public class UChar extends ByteDefinition<Character> {
+public class ImageBase extends ByteDefinition<UInteger> {
 
-    private final char value;
+    private final UInteger value;
 
-    public UChar(byte[] headerBytes, int byteStart, int byteLength, String descriptiveName) {
+    public ImageBase(UInteger value, String descriptiveName) {
         super(descriptiveName);
-
-        byte[] bytes = Arrays.copyOfRange(headerBytes, byteStart, byteStart + byteLength);
-        this.value = LittleEndian.UChar_.fromBytes(bytes);
+        this.value = value;
     }
 
     @Override
-    public final Character get() {
+    public final UInteger get() {
         return this.value;
     }
 
     @Override
-    public final void format(StringBuilder b) {
+    public void format(StringBuilder b) {
+        ImageBaseType imageBase = ImageBaseType.get(this.value);
         b.append(getDescriptiveName()).append(": ")
-         .append(this.value)
-         .append(OS.LINE_SEPARATOR);
+         .append(this.value).append(" (0x").append(this.value.toHexString()).append(") (");
+
+        if (imageBase != null) {
+            b.append(imageBase.getDescription());
+        } else {
+            b.append("no image base default");
+        }
+        b.append(")").append(OS.LINE_SEPARATOR);
     }
 }

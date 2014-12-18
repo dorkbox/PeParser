@@ -16,33 +16,26 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.misc.ImageBase;
+import dorkbox.util.bytes.UInteger;
 
-public class ULongLongImageBase extends ByteDefinition<Long> {
+public class DWORD extends ByteDefinition<UInteger> {
 
-    private final long value;
+    private final UInteger value;
 
-    public ULongLongImageBase(long value, String descriptiveName) {
+    public DWORD(UInteger value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final Long get() {
+    public final UInteger get() {
         return this.value;
     }
 
     @Override
     public void format(StringBuilder b) {
-        ImageBase imageBase = ImageBase.get((int)this.value);
         b.append(getDescriptiveName()).append(": ")
-         .append(this.value).append(" (0x").append(Long.toHexString(this.value)).append(") (");
-
-        if (imageBase != null) {
-            b.append(imageBase.getDescription());
-        } else {
-            b.append("no image base default");
-        }
-        b.append(")").append(OS.LINE_SEPARATOR);
+         .append(this.value).append(" (0x").append(this.value.toHexString()).append(")")
+         .append(OS.LINE_SEPARATOR);
     }
 }

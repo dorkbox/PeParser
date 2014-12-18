@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="libs/dorkboxUtil.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Dorkbox-Util"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaLauncher-Util"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

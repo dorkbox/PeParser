@@ -15,7 +15,9 @@
  */
 package dorkbox.util.pe.misc;
 
-public enum Subsystem {
+import dorkbox.util.bytes.UShort;
+
+public enum SubsystemType {
     IMAGE_SYSTEM_UNKNOWN(0, "unknown subsystem"),
     IMAGE_SUBSYSTEM_NATIVE(1, "Device drivers and native Windows processes"),
     IMAGE_SUBSYSTEM_WINDOWS_GUI(2, "The Windows graphical user interface (GUI) subsystem"),
@@ -32,14 +34,16 @@ public enum Subsystem {
     private final int intValue;
     private final String description;
 
-    Subsystem(int intValue, String description) {
+    SubsystemType(int intValue, String description) {
         this.intValue = intValue;
         this.description = description;
     }
 
-    public static Subsystem get(short value) {
-        for (Subsystem c : values()) {
-            if (c.intValue == value) {
+    public static SubsystemType get(UShort value) {
+        int valueAsInt = value.intValue();
+
+        for (SubsystemType c : values()) {
+            if (c.intValue == valueAsInt) {
                 return c;
             }
         }

@@ -15,34 +15,28 @@
  */
 package dorkbox.util.pe.types;
 
+import java.util.Date;
+
 import dorkbox.util.OS;
-import dorkbox.util.pe.misc.ImageBase;
+import dorkbox.util.bytes.UInteger;
 
-public class ULongImageBase extends ByteDefinition<Integer> {
+public class TimeDate extends ByteDefinition<Date> {
 
-    private final int value;
+    private final UInteger value;
 
-    public ULongImageBase(int value, String descriptiveName) {
+    public TimeDate(UInteger value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final Integer get() {
-        return this.value;
+    public final Date get() {
+        long millis = this.value.longValue() * 1000;
+        return new Date(millis);
     }
 
     @Override
     public void format(StringBuilder b) {
-        ImageBase imageBase = ImageBase.get(this.value);
-        b.append(getDescriptiveName()).append(": ")
-         .append(this.value).append(" (0x").append(Integer.toHexString(this.value)).append(") (");
-
-        if (imageBase != null) {
-            b.append(imageBase.getDescription());
-        } else {
-            b.append("no image base default");
-        }
-        b.append(")").append(OS.LINE_SEPARATOR);
+        b.append(getDescriptiveName()).append(": ").append(get().toString()).append(OS.LINE_SEPARATOR);
     }
 }

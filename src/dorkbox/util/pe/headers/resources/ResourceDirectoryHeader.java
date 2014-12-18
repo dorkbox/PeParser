@@ -18,32 +18,32 @@ package dorkbox.util.pe.headers.resources;
 import dorkbox.util.pe.ByteArray;
 import dorkbox.util.pe.headers.Header;
 import dorkbox.util.pe.headers.SectionTableEntry;
-import dorkbox.util.pe.types.ULong;
-import dorkbox.util.pe.types.ULongTimeDate;
-import dorkbox.util.pe.types.UShort;
+import dorkbox.util.pe.types.DWORD;
+import dorkbox.util.pe.types.TimeDate;
+import dorkbox.util.pe.types.WORD;
 
 public class ResourceDirectoryHeader extends Header {
 
-    public final ULong RSRC_CHARACTERISTICS;
-    public final ULongTimeDate TIME_STAMP;
-    public final UShort MAJOR_VERSION;
-    public final UShort MINOR_VERSION;
-    public final UShort NUM_NAME_ENTRIES;
-    public final UShort NUM_ID_ENTRIES;
+    public final DWORD RSRC_CHARACTERISTICS;
+    public final TimeDate TIME_STAMP;
+    public final WORD MAJOR_VERSION;
+    public final WORD MINOR_VERSION;
+    public final WORD NUM_NAME_ENTRIES;
+    public final WORD NUM_ID_ENTRIES;
 
     public ResourceDirectoryEntry[] entries;
 
     public ResourceDirectoryHeader(ByteArray bytes, SectionTableEntry section, int level) {
-        this.RSRC_CHARACTERISTICS = new ULong(bytes.readUInt(4), "Resource Characteristics"); // not used.
-        this.TIME_STAMP = new ULongTimeDate(bytes.readUInt(4), "Date");  // The time that the resource data was created by the resource compiler.
-        this.MAJOR_VERSION = new UShort(bytes.readUShort(2), "Major Version");
-        this.MINOR_VERSION = new UShort(bytes.readUShort(2), "Minor Version");
-        this.NUM_NAME_ENTRIES = new UShort(bytes.readUShort(2), "Number of Name Entries");
-        this.NUM_ID_ENTRIES = new UShort(bytes.readUShort(2), "Number of ID Entries");
+        this.RSRC_CHARACTERISTICS = new DWORD(bytes.readUInt(4), "Resource Characteristics"); // not used.
+        this.TIME_STAMP = new TimeDate(bytes.readUInt(4), "Date");  // The time that the resource data was created by the resource compiler.
+        this.MAJOR_VERSION = new WORD(bytes.readUShort(2), "Major Version");
+        this.MINOR_VERSION = new WORD(bytes.readUShort(2), "Minor Version");
+        this.NUM_NAME_ENTRIES = new WORD(bytes.readUShort(2), "Number of Name Entries");
+        this.NUM_ID_ENTRIES = new WORD(bytes.readUShort(2), "Number of ID Entries");
 
 
-        int numberOfNamedEntires = this.NUM_NAME_ENTRIES.get();
-        int numberOfIDEntires = this.NUM_ID_ENTRIES.get();
+        int numberOfNamedEntires = this.NUM_NAME_ENTRIES.get().intValue();
+        int numberOfIDEntires = this.NUM_ID_ENTRIES.get().intValue();
 
         int numberOfEntries = numberOfNamedEntires + numberOfIDEntires;
 

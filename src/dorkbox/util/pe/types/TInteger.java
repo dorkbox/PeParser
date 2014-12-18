@@ -16,25 +16,26 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
+import dorkbox.util.bytes.UInteger;
 
-public class ULongRva extends ByteDefinition<Integer> {
+public class TInteger extends ByteDefinition<UInteger> {
 
-    private final int value;
+    private final UInteger value;
 
-    public ULongRva(int value, String descriptiveName) {
+    public TInteger(UInteger value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final Integer get() {
+    public final UInteger get() {
         return this.value;
     }
 
     @Override
     public void format(StringBuilder b) {
         b.append(getDescriptiveName()).append(": ")
-         .append(this.value)
+         .append(this.value).append(" (0x").append(this.value.toBigInteger().toString(16)).append(")")
          .append(OS.LINE_SEPARATOR);
     }
 }

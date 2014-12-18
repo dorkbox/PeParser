@@ -16,25 +16,27 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
+import dorkbox.util.bytes.UShort;
 
-public class ULongLong extends ByteDefinition<Long> {
+public class WORD extends ByteDefinition<UShort> {
 
-    private final Long value;
+    private final UShort value;
 
-    public ULongLong(long value, String descriptiveName) {
+    public WORD(UShort value, String descriptiveName) {
         super(descriptiveName);
+
         this.value = value;
     }
 
     @Override
-    public final Long get() {
+    public final UShort get() {
         return this.value;
     }
 
     @Override
-    public void format(StringBuilder b) {
+    public final void format(StringBuilder b) {
         b.append(getDescriptiveName()).append(": ")
-         .append(this.value).append(" (0x").append(Long.toHexString(this.value)).append(")")
+         .append(this.value).append(" (0x").append(this.value.toHexString()).append(")")
          .append(OS.LINE_SEPARATOR);
     }
 }

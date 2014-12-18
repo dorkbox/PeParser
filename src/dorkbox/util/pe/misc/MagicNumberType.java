@@ -15,7 +15,9 @@
  */
 package dorkbox.util.pe.misc;
 
-public enum MagicNumber {
+import dorkbox.util.bytes.UShort;
+
+public enum MagicNumberType {
     NONE("", "ERROR, unable to recognize magic number"),
     PE32("10B", "PE32, normal executable file"),
     PE32_PLUS("20B", "PE32+ executable"),
@@ -25,15 +27,15 @@ public enum MagicNumber {
     private final String hexValue;
     private final String description;
 
-    MagicNumber(String hexValue, String description) {
-        this.hexValue = hexValue;
+    MagicNumberType(String hexValue, String description) {
+        this.hexValue = hexValue.toLowerCase();
         this.description = description;
     }
 
-    public static MagicNumber get(short value) {
-        String key = Integer.toHexString(value).toUpperCase();
+    public static MagicNumberType get(UShort value) {
+        String key = value.toHexString();
 
-        for (MagicNumber mt : values()) {
+        for (MagicNumberType mt : values()) {
             if (key.equals(mt.hexValue)) {
                 return mt;
             }

@@ -16,36 +16,37 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.headers.flags.DllCharacteristics;
+import dorkbox.util.bytes.UInteger;
+import dorkbox.util.pe.headers.flags.SectionCharacteristicsType;
 
-public class UShortDllCharacteristics extends ByteDefinition<DllCharacteristics[]> {
+public class SectionCharacteristics extends ByteDefinition<SectionCharacteristicsType[]> {
 
-    private final short value;
+    private final UInteger value;
 
-    public UShortDllCharacteristics(short value, String descriptiveName) {
+    public SectionCharacteristics(UInteger value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final DllCharacteristics[] get() {
-        return DllCharacteristics.get(this.value);
+    public final SectionCharacteristicsType[] get() {
+        return SectionCharacteristicsType.get(this.value);
     }
 
     @Override
     public void format(StringBuilder b) {
-        DllCharacteristics[] characteristics = get();
+        SectionCharacteristicsType[] characteristics = get();
 
-
-        b.append(getDescriptiveName()).append(":").append(OS.LINE_SEPARATOR);
+        b.append(getDescriptiveName()).append(": ").append(OS.LINE_SEPARATOR);
 
         if (characteristics.length > 0) {
-            for (DllCharacteristics c : characteristics) {
+            for (SectionCharacteristicsType c : characteristics) {
                 b.append("\t * ").append(c.getDescription()).append(OS.LINE_SEPARATOR);
             }
         } else {
             b.append("\t * none").append(OS.LINE_SEPARATOR);
         }
+
         b.append(OS.LINE_SEPARATOR);
     }
 }

@@ -16,30 +16,37 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.misc.Subsystem;
+import dorkbox.util.bytes.UShort;
+import dorkbox.util.pe.headers.flags.DllCharacteristicsType;
 
-public class UShortSubsystem extends ByteDefinition<Subsystem> {
+public class DllCharacteristics extends ByteDefinition<DllCharacteristicsType[]> {
 
-    private final short value;
+    private final UShort value;
 
-    public UShortSubsystem(short value, String descriptiveName) {
+    public DllCharacteristics(UShort value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final Subsystem get() {
-        return Subsystem.get(this.value);
+    public final DllCharacteristicsType[] get() {
+        return DllCharacteristicsType.get(this.value);
     }
 
     @Override
     public void format(StringBuilder b) {
-        Subsystem s = get();
+        DllCharacteristicsType[] characteristics = get();
 
-        if (s != null) {
-            b.append(getDescriptiveName()).append(": ").append(s.getDescription()).append(OS.LINE_SEPARATOR);
+
+        b.append(getDescriptiveName()).append(":").append(OS.LINE_SEPARATOR);
+
+        if (characteristics.length > 0) {
+            for (DllCharacteristicsType c : characteristics) {
+                b.append("\t * ").append(c.getDescription()).append(OS.LINE_SEPARATOR);
+            }
         } else {
-            b.append("ERROR, no subsystem description for value: ").append(this.value).append(OS.LINE_SEPARATOR);
+            b.append("\t * none").append(OS.LINE_SEPARATOR);
         }
+        b.append(OS.LINE_SEPARATOR);
     }
 }

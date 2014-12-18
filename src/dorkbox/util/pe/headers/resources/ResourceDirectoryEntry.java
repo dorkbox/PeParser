@@ -18,8 +18,8 @@ package dorkbox.util.pe.headers.resources;
 import dorkbox.util.pe.ByteArray;
 import dorkbox.util.pe.headers.Header;
 import dorkbox.util.pe.headers.SectionTableEntry;
-import dorkbox.util.pe.types.ULong;
-import dorkbox.util.pe.types.ULongResourceDirName;
+import dorkbox.util.pe.types.DWORD;
+import dorkbox.util.pe.types.ResourceDirName;
 
 public class ResourceDirectoryEntry extends Header {
 
@@ -28,7 +28,7 @@ public class ResourceDirectoryEntry extends Header {
     private static final int DATA_IS_DIRECTORY_MASK = 0x80000000;
     private static final int ENTRY_OFFSET_MASK = 0x7FFFFFFF;
 
-    public final ULongResourceDirName NAME;
+    public final ResourceDirName NAME;
 
     /**
      * This field is either an offset to another resource directory or a pointer to information about a specific resource instance.
@@ -40,7 +40,7 @@ public class ResourceDirectoryEntry extends Header {
      *
      * The IMAGE_RESOURCE_DATA_ENTRY structure contains the location of the resource's raw data, its size, and its code page.
      */
-    public final ULong DATA_OFFSET;
+    public final DWORD DATA_OFFSET;
 
     // is this a directory (according to above) or an entry?
     public final boolean isDirectory;
@@ -68,27 +68,31 @@ public class ResourceDirectoryEntry extends Header {
         //   |- Dialog
         //   |- String
 
-        this.NAME = h(new ULongResourceDirName(bytes.readUInt(4), "name", bytes, level));
-        this.DATA_OFFSET = h(new ULong(bytes.readUInt(4), "data offset"));
+        this.NAME = h(new ResourceDirName(bytes.readUInt(4), "name", bytes, level));
+        this.DATA_OFFSET = h(new DWORD(bytes.readUInt(4), "data offset"));
 
 
-        int dataOffset = ENTRY_OFFSET_MASK & this.DATA_OFFSET.get();
-        if (dataOffset == 0) {
+        long dataOffset = ENTRY_OFFSET_MASK & this.DATA_OFFSET.get().longValue();
+        if (dataOffset == 0L) {
             // if it is ZERO, than WTF? is it a a directory header! (maybe?)
             this.isDirectory = false;
             return;
         }
 
-        this.isDirectory = 0 != (DATA_IS_DIRECTORY_MASK & this.DATA_OFFSET.get());
+        if (dataOffset > Integer.MAX_VALUE) {
+            throw new RuntimeException("Unable to set offset to more than 2gb!");
+        }
+
+        this.isDirectory = 0L != (DATA_IS_DIRECTORY_MASK & this.DATA_OFFSET.get().longValue());
 
         int saved = bytes.position();
-        bytes.seek(bytes.marked() + dataOffset);
+        bytes.seek(bytes.marked() + (int) dataOffset);
 //        System.err.println(Integer.toHexString(bytes.position));
 
         if (this.isDirectory) {
             this.directory = new ResourceDirectoryHeader(bytes, section, level);
         } else {
-            this.resourceDataEntry = new ResourceDataEntry(bytes, dataOffset, section);
+            this.resourceDataEntry = new ResourceDataEntry(bytes, section);
         }
 
         bytes.seek(saved);

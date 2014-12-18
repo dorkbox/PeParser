@@ -15,6 +15,8 @@
  */
 package dorkbox.util.pe.misc;
 
+import dorkbox.util.bytes.UInteger;
+
 public enum ResourceTypes {
     N_1("???_0"),
     CURSOR("Cursor"),
@@ -53,9 +55,11 @@ public enum ResourceTypes {
         return this.detailedInfo;
     }
 
-    public static ResourceTypes get(int valueInt) {
+    public static ResourceTypes get(UInteger valueInt) {
+        int valueAsInt = valueInt.intValue();
+
         for (ResourceTypes t : values()) {
-            if (valueInt == t.ordinal()) {
+            if (valueAsInt == t.ordinal()) {
                 return t;
             }
         }

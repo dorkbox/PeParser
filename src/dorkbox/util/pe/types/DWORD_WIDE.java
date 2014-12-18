@@ -16,36 +16,26 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
-import dorkbox.util.pe.headers.flags.Characteristics;
+import dorkbox.util.bytes.ULong;
 
-public class UShortCoffCharacteristics extends ByteDefinition<Characteristics[]> {
+public class DWORD_WIDE extends ByteDefinition<ULong> {
 
-    private final short value;
+    private final ULong value;
 
-    public UShortCoffCharacteristics(short value, String descriptiveName) {
+    public DWORD_WIDE(ULong value, String descriptiveName) {
         super(descriptiveName);
         this.value = value;
     }
 
     @Override
-    public final Characteristics[] get() {
-        return Characteristics.get(this.value);
+    public final ULong get() {
+        return this.value;
     }
 
     @Override
     public void format(StringBuilder b) {
-        Characteristics[] characteristics = get();
-
-
-        b.append(getDescriptiveName()).append(":").append(OS.LINE_SEPARATOR);
-
-        if (characteristics.length > 0) {
-            for (Characteristics c : characteristics) {
-                b.append("\t * ").append(c.getDescription()).append(OS.LINE_SEPARATOR);
-            }
-        } else {
-            b.append("\t * none").append(OS.LINE_SEPARATOR);
-        }
-        b.append(OS.LINE_SEPARATOR);
+        b.append(getDescriptiveName()).append(": ")
+         .append(this.value).append(" (0x").append(this.value.toHexString()).append(")")
+         .append(OS.LINE_SEPARATOR);
     }
 }

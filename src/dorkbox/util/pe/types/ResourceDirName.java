@@ -16,10 +16,11 @@
 package dorkbox.util.pe.types;
 
 import dorkbox.util.OS;
+import dorkbox.util.bytes.UInteger;
 import dorkbox.util.pe.ByteArray;
 import dorkbox.util.pe.misc.ResourceTypes;
 
-public class ULongResourceDirName extends ByteDefinition<String> {
+public class ResourceDirName extends ByteDefinition<String> {
 
     private static final int NAME_IS_STRING_MASK = 0x80000000;
     private static final int NAME_OFFSET_MASK = 0x7FFFFFFF;
@@ -27,7 +28,7 @@ public class ULongResourceDirName extends ByteDefinition<String> {
     private final String value;
     private final int level;
 
-    public ULongResourceDirName(int intValue, String descriptiveName, ByteArray bytes, int level) {
+    public ResourceDirName(UInteger intValue, String descriptiveName, ByteArray bytes, int level) {
         super(descriptiveName);
 
         this.level = level;
@@ -44,7 +45,7 @@ public class ULongResourceDirName extends ByteDefinition<String> {
         * Yes, even PE files intended for non-UNICODE Win32 implementations use UNICODE here. To convert the UNICODE
         * string to an ANSI string, use the WideCharToMultiByte function.
         */
-        int valueInt = intValue;
+        long valueInt = intValue.longValue();
 
         // now process the name
         boolean isString = 0 != (valueInt & NAME_IS_STRING_MASK);
@@ -54,16 +55,20 @@ public class ULongResourceDirName extends ByteDefinition<String> {
             //
             // High bit is 1
             //
-            int offset = valueInt & NAME_OFFSET_MASK;
+            long offset = valueInt & NAME_OFFSET_MASK;
+
+            if (offset > Integer.MAX_VALUE) {
+                throw new RuntimeException("Unable to set offset to more than 2gb!");
+            }
 
             // offset from the start of the resource data to the name string of this particular resource.
-            bytes.seek(bytes.marked() + offset);
-            int length = bytes.readUShort(2);
+            bytes.seek(bytes.marked() + (int) offset);
+            int length = bytes.readUShort(2).intValue();
 
             byte[] buff = new byte[length * 2]; // UTF-8 chars are 16 bits = 2
             // bytes
             for (int i = 0; i < buff.length; i++) {
-                buff[i] = bytes.readUByte();
+                buff[i] = bytes.readUByte().byteValue();
             }
 
             // go back
@@ -79,16 +84,16 @@ public class ULongResourceDirName extends ByteDefinition<String> {
             // determine what "name" means
             switch (level) {
                 case 1: // TYPE
-                    this.value = ResourceTypes.get(valueInt).getDetailedInfo();
+                    this.value = ResourceTypes.get(intValue).getDetailedInfo();
                     break;
                 case 2: // NAME
-                    this.value = Integer.toHexString(valueInt);
+                    this.value = intValue.toHexString();
                     break;
                 case 3: // Language ID
-                    this.value = Integer.toHexString(valueInt);
+                    this.value = intValue.toHexString();
                     break;
                 default:
-                    this.value = Integer.toHexString(valueInt);
+                    this.value = intValue.toHexString();
                     break;
             }
         }
