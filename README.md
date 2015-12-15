@@ -10,13 +10,11 @@ Windows PE format and details: http://msdn.microsoft.com/en-us/library/ms809762.
 - This is for cross-platform use, specifically - linux 32/64, mac 32/64, and windows 32/64. Java 6+
 
 
-
 <h4>We now release to maven!</h4> 
 
-There are two dependencies here because we did not want to bake-in a hard dependency into the POM file for the utilities library, which 
-are an extremely small subset of a much larger library; including only what is *necessary* for this particular project to function.
+There is a hard dependency in the POM file for the utilities library, which is an extremely small subset of a much larger library; including only what is *necessary* for this particular project to function.
 
-This project is **kept in sync** with the utilities library, so "jar hell" is not an issue. Please note that the util library (in it's entirety) is not added since there are **many** dependencies that are not *necessary* for this project. No reason to require a massive amount of dependencies for one or two classes/methods. 
+This project is **kept in sync** with the utilities library, so "jar hell" is not an issue. Please note that the util library (in it's entirety) is not added since there are **many** dependencies that are not *necessary* for this project. No reason to require a massive amount of dependencies for one or two classes/methods.  
 ```
 <dependency>
   <groupId>com.dorkbox</groupId>
