@@ -23,7 +23,7 @@ This project is **kept in sync** with the utilities library, so "jar hell" is no
 </dependency>
 ```
 
-Or if you don't want to use Maven, you can access the files directly here:
-https://oss.sonatype.org/content/repositories/releases/com/dorkbox/PeParser/
-https://oss.sonatype.org/content/repositories/releases/com/dorkbox/PeParser-Dorkbox-Util/
+Or if you don't want to use Maven, you can access the files directly here:  
+https://oss.sonatype.org/content/repositories/releases/com/dorkbox/PeParser/  
+https://oss.sonatype.org/content/repositories/releases/com/dorkbox/PeParser-Dorkbox-Util/  
 
