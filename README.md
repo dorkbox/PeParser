@@ -31,18 +31,3 @@ https://oss.sonatype.org/content/repositories/releases/com/dorkbox/PeParser-Dork
 <h2>License</h2>
 
 This project is distributed under the terms of the Apache v2.0 License. See file "LICENSE" for further references.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
