@@ -19,7 +19,7 @@ This project is **kept in sync** with the utilities library, so "jar hell" is no
 <dependency>
   <groupId>com.dorkbox</groupId>
   <artifactId>PeParser</artifactId>
-  <version>2.3</version>
+  <version>2.4</version>
 </dependency>
 ```
 
