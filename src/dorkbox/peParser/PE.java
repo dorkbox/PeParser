@@ -48,7 +48,7 @@ public class PE {
      */
     public static
     String getVersion() {
-        return "2.5";
+        return "2.6";
     }
 
     private static final int PE_OFFSET_LOCATION = 0x3c;
