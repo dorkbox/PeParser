@@ -19,7 +19,7 @@ This project **includes** some utility classes, which are an extremely small sub
 <dependency>
   <groupId>com.dorkbox</groupId>
   <artifactId>PeParser</artifactId>
-  <version>2.7</version>
+  <version>2.9</version>
 </dependency>
 ```
 
