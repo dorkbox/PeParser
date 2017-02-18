@@ -15,26 +15,27 @@
  */
 package dorkbox.peParser;
 
-import dorkbox.peParser.headers.resources.ResourceDataEntry;
-import dorkbox.peParser.headers.resources.ResourceDirectoryEntry;
-import dorkbox.peParser.headers.resources.ResourceDirectoryHeader;
-import dorkbox.peParser.types.ByteDefinition;
-import dorkbox.peParser.types.ImageDataDir;
-import dorkbox.util.OS;
-import dorkbox.peParser.headers.COFFFileHeader;
-import dorkbox.peParser.headers.Header;
-import dorkbox.peParser.headers.OptionalHeader;
-import dorkbox.peParser.headers.SectionTable;
-import dorkbox.peParser.headers.SectionTableEntry;
-import dorkbox.peParser.misc.DirEntry;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
+
+import dorkbox.peParser.headers.COFFFileHeader;
+import dorkbox.peParser.headers.Header;
+import dorkbox.peParser.headers.OptionalHeader;
+import dorkbox.peParser.headers.SectionTable;
+import dorkbox.peParser.headers.SectionTableEntry;
+import dorkbox.peParser.headers.resources.ResourceDataEntry;
+import dorkbox.peParser.headers.resources.ResourceDirectoryEntry;
+import dorkbox.peParser.headers.resources.ResourceDirectoryHeader;
+import dorkbox.peParser.misc.DirEntry;
+import dorkbox.peParser.types.ByteDefinition;
+import dorkbox.peParser.types.ImageDataDir;
+import dorkbox.util.OS;
 
 public class PE {
     // info from:
@@ -65,7 +66,8 @@ public class PE {
     public PE(String fileName) {
         File file = new File(fileName);
         try {
-            fromInputStream(file);
+            FileInputStream fileInputStream = new FileInputStream(file);
+            fromInputStream(fileInputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -73,17 +75,26 @@ public class PE {
         }
     }
 
-    private void fromInputStream(File file) throws FileNotFoundException, IOException {
-        FileInputStream fileInputStream = new FileInputStream(file);
+    public PE(InputStream inputStream) {
+        try {
+            fromInputStream(inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fromInputStream(InputStream inputStream) throws FileNotFoundException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(8192);
 
         byte[] buffer = new byte[4096];
         int read = 0;
-        while ((read = fileInputStream.read(buffer)) > 0) {
+        while ((read = inputStream.read(buffer)) > 0) {
             baos.write(buffer, 0, read);
         }
         baos.flush();
-        fileInputStream.close();
+        inputStream.close();
 
         this.fileBytes = new ByteArray(baos.toByteArray());
 
@@ -210,43 +221,53 @@ public class PE {
     }
 
     public ByteArrayInputStream getLargestResourceAsStream() {
-        for (ImageDataDir entry : this.optionalHeader.tables) {
-            if (entry.getType() == DirEntry.RESOURCE) {
-                ResourceDataEntry check = null;
+        for (ImageDataDir mainEntry : this.optionalHeader.tables) {
+            if (mainEntry.getType() == DirEntry.RESOURCE) {
 
-                LinkedList<ResourceDirectoryEntry> LIST = new LinkedList<ResourceDirectoryEntry>();
-                ResourceDirectoryHeader root = (ResourceDirectoryHeader) entry.data;
+
+                LinkedList<ResourceDirectoryEntry> directoryEntries = new LinkedList<ResourceDirectoryEntry>();
+                LinkedList<ResourceDirectoryEntry> resourceEntries = new LinkedList<ResourceDirectoryEntry>();
+
+                ResourceDirectoryEntry entry = null;
+                ResourceDirectoryHeader root = (ResourceDirectoryHeader) mainEntry.data;
+
                 for (ResourceDirectoryEntry rootEntry : root.entries) {
-                    LIST.add(rootEntry);
+                    collect(directoryEntries, resourceEntries, rootEntry);
+                    directoryEntries.add(rootEntry);
                 }
 
-                while(LIST.peek() != null) {
-                    ResourceDataEntry valid = check(check, LIST, LIST.poll());
-                    if (valid != null) {
-                        check = valid;
+                while ((entry = directoryEntries.poll()) != null) {
+                    collect(directoryEntries, resourceEntries, entry);
+                }
+
+                ResourceDataEntry largest = null;
+                for (ResourceDirectoryEntry resourceEntry : resourceEntries) {
+                    ResourceDataEntry dataEntry = resourceEntry.resourceDataEntry;
+
+                    if (largest == null || largest.SIZE.get().longValue() < dataEntry.SIZE.get().longValue()) {
+                        largest = dataEntry;
                     }
                 }
 
                 // now return our resource, but it has to be wrapped in a new stream!
-                return new ByteArrayInputStream(check.getData(this.fileBytes));
+                return new ByteArrayInputStream(largest.getData(this.fileBytes));
             }
         }
         return null;
     }
 
-    private ResourceDataEntry check(ResourceDataEntry check, LinkedList<ResourceDirectoryEntry> LIST, ResourceDirectoryEntry entry) {
+    private
+    void collect(final LinkedList<ResourceDirectoryEntry> directoryEntries,
+                 final LinkedList<ResourceDirectoryEntry> resourceEntries,
+                 final ResourceDirectoryEntry entry) {
+
         if (entry.isDirectory) {
-            for (ResourceDirectoryEntry rootEntry : entry.directory.entries) {
-                LIST.add(rootEntry);
+            for (ResourceDirectoryEntry dirEntry : entry.directory.entries) {
+                directoryEntries.add(dirEntry);
             }
         } else {
-            // this is what we are looking for!
-            ResourceDataEntry dataEntry = entry.resourceDataEntry;
-            if (check == null || check.SIZE.get().longValue() < dataEntry.SIZE.get().longValue()) {
-                return dataEntry;
-            }
+            resourceEntries.add(entry);
         }
-        return null;
     }
 }
 
