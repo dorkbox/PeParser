@@ -256,6 +256,60 @@ public class PE {
         return null;
     }
 
+    public static String getVersion(String executablePath) throws Exception {
+        PE pe = new PE(executablePath);
+        for (ImageDataDir mainEntry : pe.optionalHeader.tables) {
+            if (mainEntry.getType() == DirEntry.RESOURCE) {
+                ResourceDirectoryHeader root = (ResourceDirectoryHeader) mainEntry.data;
+                for (ResourceDirectoryEntry rootEntry : root.entries) {
+                    if ("Version".equals(rootEntry.NAME.get())) {
+                        byte[] versionInfoData = rootEntry.directory.entries[0].directory.entries[0].resourceDataEntry.getData(pe.fileBytes);
+                        int fileVersionIndex = indexOf(versionInfoData, includeNulls("FileVersion")) + 26;
+                        int fileVersionEndIndex = indexOf(versionInfoData, new byte[]{0x00, 0x00}, fileVersionIndex);
+                        return removeNulls(new String(versionInfoData, fileVersionIndex, fileVersionEndIndex - fileVersionIndex));
+                    }
+                }
+            }
+        }
+
+        throw new RuntimeException("No version found:" + executablePath);
+    }
+
+    private static byte[] includeNulls(String str){
+        char[] chars = str.toCharArray();
+        byte[] result = new byte[chars.length*2];
+
+        for (int i = 0, j = 0; i < result.length; i += 2, j++) {
+            result[i] = (byte) chars[j];
+        }
+
+        return result;
+    }
+
+    private static String removeNulls(String str) {
+        return str == null ? null : str.replaceAll("\\x00", "");
+    }
+
+    public static int indexOf(byte[] outerArray, byte[] smallerArray) {
+        return indexOf(outerArray, smallerArray, 0);
+    }
+
+    public static int indexOf(byte[] outerArray, byte[] smallerArray, int begin) {
+        for (int i = begin; i < outerArray.length - smallerArray.length + 1; ++i) {
+            boolean found = true;
+            for (int j = 0; j < smallerArray.length; ++j) {
+                if (outerArray[i + j] != smallerArray[j]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private
     void collect(final LinkedList<ResourceDirectoryEntry> directoryEntries,
                  final LinkedList<ResourceDirectoryEntry> resourceEntries,
