@@ -36,6 +36,7 @@ import dorkbox.peParser.misc.DirEntry;
 import dorkbox.peParser.types.ByteDefinition;
 import dorkbox.peParser.types.ImageDataDir;
 import dorkbox.util.OS;
+import dorkbox.util.Version;
 
 public class PE {
     // info from:
@@ -48,8 +49,8 @@ public class PE {
      * Gets the version number.
      */
     public static
-    String getVersion() {
-        return "2.10";
+    Version getVersion() {
+        return new Version("2.10");
     }
 
     private static final int PE_OFFSET_LOCATION = 0x3c;
