@@ -50,7 +50,7 @@ public class PE {
      */
     public static
     Version getVersion() {
-        return new Version("2.10");
+        return new Version("2.11");
     }
 
     private static final int PE_OFFSET_LOCATION = 0x3c;
