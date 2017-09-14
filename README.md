@@ -29,7 +29,7 @@ Maven Info
     <dependency>
       <groupId>com.dorkbox</groupId>
       <artifactId>PeParser</artifactId>
-      <version>2.11</version>
+      <version>2.12</version>
     </dependency>
 </dependencies>
 ```
