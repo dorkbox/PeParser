@@ -205,17 +205,25 @@ public class PE {
 
     public boolean isPE() {
         // always have to start from zero if we ask this.
-        int offset = getPEOffset();
-        int saved = this.fileBytes.position();
-        this.fileBytes.seek(0);
-            try {
-                for (int i = 0; i < PE_SIG.length; i++) {
+
+        int saved = -1;
+        try {
+            // this can screw up if the length of the file is invalid...
+            int offset = getPEOffset();
+            saved = this.fileBytes.position();
+            this.fileBytes.seek(0);
+
+            for (int i = 0; i < PE_SIG.length; i++) {
                 if (this.fileBytes.readRaw(offset + i) != PE_SIG[i]) {
                     return false;
                 }
             }
+
             return true;
+        } catch (Exception e) {
+            return false;
         } finally {
+            if (saved != -1)
             this.fileBytes.seek(saved);
         }
     }
