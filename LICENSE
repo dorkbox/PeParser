@@ -1,14 +1,11 @@
-    - Dorkbox PE Parser - Apache 2.0 License
-      https://github.com/dorkbox
-      Copyright 2012, dorkbox, llc
-        Windows PE (Portable Executable) file parser for Java 6+
+ - PeParser - 
+   https://git.dorkbox.com/dorkbox/PeParser
+   Copyright 2018 - The Apache Software License, Version 2.0
+     dorkbox, llc
+   Windows PE (Portable Executable) file parser for Java 6+
 
 
-    - Dorkbox Utils - Apache 2.0 License
-      https://github.com/dorkbox
-      Copyright 2010, dorkbox, llc
-
-
-    - jOOU, Unsigned Numbers for Java - Apache 2.0 License
-      https://github.com/jOOQ/jOOU
-      Copyright 2011-2013, Lukas Eder, lukas.eder@gmail.com
+ - jOOU - Unsigned Numbers for Java - 
+   https://github.com/jOOQ/jOOU
+   Copyright 2013 - The Apache Software License, Version 2.0
+     Lukas Eder, lukas.eder@gmail.com
