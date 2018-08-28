@@ -69,7 +69,7 @@ apply plugin: 'java-library'
 
 project.description = 'Windows PE (Portable Executable) file parser for Java 6+'
 project.group = 'com.dorkbox'
-project.version = '2.12'
+project.version = '2.13'
 
 project.ext.name = 'PeParser'
 project.ext.url = 'https://git.dorkbox.com/dorkbox/PeParser'

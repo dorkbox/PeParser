@@ -29,7 +29,7 @@ Maven Info
     <dependency>
       <groupId>com.dorkbox</groupId>
       <artifactId>PeParser</artifactId>
-      <version>2.12</version>
+      <version>2.13</version>
     </dependency>
 </dependencies>
 ```
@@ -39,7 +39,7 @@ Gradle Info
 ````
 dependencies {
     ...
-    compile 'com.dorkbox:PeParser:2.12'
+    compile 'com.dorkbox:PeParser:2.13'
 }
 ````
 
