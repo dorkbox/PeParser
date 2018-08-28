@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 import java.nio.file.Paths
 import java.time.Instant
 
@@ -74,8 +75,8 @@ project.ext.name = 'PeParser'
 project.ext.url = 'https://git.dorkbox.com/dorkbox/PeParser'
 
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+sourceCompatibility = JavaVersion.VERSION_1_6
+targetCompatibility = JavaVersion.VERSION_1_6
 
 
 licensing {
@@ -108,30 +109,12 @@ repositories {
 
 
 dependencies {
-    implementation(project('Utilities')) {
-        // don't include any of the project dependencies for anything
-        transitive = false
-    }
+    compileOnly(project('Utilities'))
 
     // our main dependencies are ALSO the same as the limited utilities (they are not automatically pulled in from other sourceSets)
     // needed by the utilities (custom since we don't want to include everything). IntelliJ includes everything, but our builds do not
 }
 
-
-project('Utilities') {
-    tasks.withType(Test) {
-        // want to remove utilities project from unit tests. It's unnecessary to run unit tests for the entire Utilities project
-        exclude('**/*')
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-        options.incremental = true
-
-        // setup compile options. we specifically want to suppress usage of "Unsafe"
-        options.compilerArgs = ['-XDignore.symbol.file', '-Xlint:deprecation']
-    }
-}
 
 ///////////////////////////////
 //////    Task defaults
@@ -146,13 +129,14 @@ tasks.withType(Jar) {
     manifest {
         attributes['Implementation-Version'] = version
         attributes['Build-Date'] = Instant.now().toString()
+        attributes['Automatic-Module-Name'] = project.ext.name.toString()
     }
 }
 
 ///////////////////////////////
 //////    UTILITIES COMPILE (for inclusion into jars)
 ///////////////////////////////
-static String[] javaFile(String... fileNames) {
+static String[] utilFiles(String... fileNames) {
     def fileList = [] as ArrayList
 
     for (name in fileNames) {
@@ -168,13 +152,14 @@ task compileUtils(type: JavaCompile) {
     getIncludes().clear()
 
     source = Collections.singletonList('../Utilities/src')
-    include javaFile('dorkbox.util.bytes.LittleEndian',
-                     'dorkbox.util.bytes.UByte',
-                     'dorkbox.util.bytes.UInteger',
-                     'dorkbox.util.bytes.ULong',
-                     'dorkbox.util.bytes.Unsigned',
-                     'dorkbox.util.bytes.UNumber',
-                     'dorkbox.util.bytes.UShort')
+
+    include utilFiles('dorkbox.util.bytes.LittleEndian',
+                      'dorkbox.util.bytes.UByte',
+                      'dorkbox.util.bytes.UInteger',
+                      'dorkbox.util.bytes.ULong',
+                      'dorkbox.util.bytes.Unsigned',
+                      'dorkbox.util.bytes.UNumber',
+                      'dorkbox.util.bytes.UShort')
 
     classpath = sourceSets.main.compileClasspath
     destinationDir = file("$rootDir/build/classes_utilities")
@@ -221,17 +206,6 @@ publishing {
             version project.version
 
             pom {
-                withXml {
-                    // eliminate logback and utilities (no need in maven POMs)
-                    def root = asNode()
-
-                    root.dependencies.'*'.findAll() {
-                        it.artifactId.text() == "Utilities"
-                    }.each() {
-                        it.parent().remove(it)
-                    }
-                }
-
                 name = project.ext.name
                 url = project.ext.url
                 description = project.description
@@ -278,7 +252,6 @@ nexusStaging {
 }
 
 signing {
-    required {hasProperty('sonatypeUsername')}
     sign publishing.publications.maven
 }
 
