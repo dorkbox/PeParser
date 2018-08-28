@@ -25,8 +25,6 @@ import dorkbox.util.bytes.ULong;
 import dorkbox.util.bytes.UShort;
 
 public class ByteArray extends ByteArrayInputStream {
-    /** size of the headers, when done reading */
-//    public int pos = 0; (we just use the bais pos)
 
     public ByteArray(byte[] bytes) {
         super(bytes);
