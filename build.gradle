@@ -109,6 +109,7 @@ repositories {
 
 
 dependencies {
+    // utilities dependencies compile only
     compileOnly(project('Utilities'))
 
     // our main dependencies are ALSO the same as the limited utilities (they are not automatically pulled in from other sourceSets)
@@ -165,9 +166,6 @@ task compileUtils(type: JavaCompile) {
     destinationDir = file("$rootDir/build/classes_utilities")
 }
 
-///////////////////////////////
-//////    Jar Tasks
-///////////////////////////////
 jar {
     dependsOn compileUtils
 
