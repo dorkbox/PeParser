@@ -61,6 +61,7 @@ public class PE {
     private COFFFileHeader coffHeader;
     public OptionalHeader optionalHeader;
     private SectionTable sectionTable;
+    private boolean invalidFile;
 
 
     public PE(String fileName) {
@@ -96,7 +97,10 @@ public class PE {
         baos.flush();
         inputStream.close();
 
-        this.fileBytes = new ByteArray(baos.toByteArray());
+        byte[] bytes = baos.toByteArray();
+        invalidFile = bytes.length == 0;
+
+        this.fileBytes = new ByteArray(bytes);
 
         // initialize header info
         if (isPE()) {
@@ -204,6 +208,9 @@ public class PE {
     }
 
     public boolean isPE() {
+        if (invalidFile) {
+            return false;
+        }
 
         int saved = -1;
         try {
@@ -268,6 +275,11 @@ public class PE {
 
     public static String getVersion(String executablePath) throws Exception {
         PE pe = new PE(executablePath);
+
+        if (pe.invalidFile) {
+            throw new Exception("No version found:" + executablePath);
+        }
+
         for (ImageDataDir mainEntry : pe.optionalHeader.tables) {
             if (mainEntry.getType() == DirEntry.RESOURCE) {
                 ResourceDirectoryHeader root = (ResourceDirectoryHeader) mainEntry.data;
@@ -282,7 +294,7 @@ public class PE {
             }
         }
 
-        throw new RuntimeException("No version found:" + executablePath);
+        throw new Exception("No version found:" + executablePath);
     }
 
     private static byte[] includeNulls(String str){
