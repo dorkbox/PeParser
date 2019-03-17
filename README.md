@@ -1,6 +1,8 @@
 PeParser
 =========
 
+###### [![Dorkbox](https://badge.dorkbox.com/dorkbox.svg "Dorkbox")](https://git.dorkbox.com/dorkbox/PeParser) [![Github](https://badge.dorkbox.com/github.svg "Github")](https://github.com/dorkbox/PeParser) [![Gitlab](https://badge.dorkbox.com/gitlab.svg "Gitlab")](https://gitlab.com/dorkbox/PeParser) [![Bitbucket](https://badge.dorkbox.com/bitbucket.svg "Bitbucket")](https://bitbucket.org/dorkbox/PeParser)
+
 Provides a light-weight way to parse and extract data from windows PE files, from Java.
 
 This library can access meta-data information and details from within the PE file, and specifically it was designed to access and copy out files from the .rsrc section. 
@@ -39,7 +41,7 @@ Gradle Info
 ````
 dependencies {
     ...
-    compile 'com.dorkbox:PeParser:2.13'
+    compile "com.dorkbox:PeParser:2.13"
 }
 ````
 
