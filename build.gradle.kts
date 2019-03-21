@@ -15,6 +15,8 @@
  */
 
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
+import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
 import java.time.Instant
 import java.util.*
 import kotlin.reflect.KMutableProperty
@@ -202,6 +204,8 @@ tasks.jar.get().apply {
         attributes["Implementation-Title"] = "${Extras.group}.${Extras.id}"
         attributes["Implementation-Version"] = Extras.buildDate
         attributes["Implementation-Vendor"] = Extras.vendor
+
+        attributes["Automatic-Module-Name"] = Extras.id
     }
 }
 
