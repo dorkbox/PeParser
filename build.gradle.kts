@@ -15,8 +15,6 @@
  */
 
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
-import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
 import java.time.Instant
 import java.util.*
 import kotlin.reflect.KMutableProperty
@@ -136,46 +134,6 @@ repositories {
 }
 
 ///////////////////////////////
-//////    UTILITIES COMPILE
-///////////////////////////////
-
-// as long as the 'Utilities' project is ALSO imported into IntelliJ, class resolution will work (add the sources in the intellij project)
-val utils : Configuration by configurations.creating
-
-fun javaFile(vararg fileNames: String): Iterable<String> {
-    val fileList = ArrayList<String>(fileNames.size)
-
-    fileNames.forEach { name ->
-        fileList.add(name.replace('.', '/') + ".java")
-    }
-
-    return fileList
-}
-
-
-task<JavaCompile>("compileUtils") {
-    // we don't want the default include of **/*.java
-    includes.clear()
-
-    source = fileTree("../Utilities/src")
-    include(javaFile(
-        "dorkbox.util.OS",
-        "dorkbox.util.OSType",
-
-        "dorkbox.util.bytes.LittleEndian",
-        "dorkbox.util.bytes.UByte",
-        "dorkbox.util.bytes.UInteger",
-        "dorkbox.util.bytes.ULong",
-        "dorkbox.util.bytes.Unsigned",
-        "dorkbox.util.bytes.UNumber",
-        "dorkbox.util.bytes.UShort"
-                    ))
-
-    classpath = files(utils)
-    destinationDir = file("$rootDir/build/classes_utilities")
-}
-
-///////////////////////////////
 //////    Task defaults
 ///////////////////////////////
 tasks.withType<JavaCompile> {
@@ -190,9 +148,6 @@ tasks.withType<Jar> {
 }
 
 tasks.jar.get().apply {
-    // include applicable class files from subset of Utilities project
-    from((tasks["compileUtils"] as JavaCompile).outputs)
-
     manifest {
         // https://docs.oracle.com/javase/tutorial/deployment/jar/packageman.html
         attributes["Name"] = Extras.name
@@ -216,9 +171,7 @@ tasks.compileJava.get().apply {
 
 dependencies {
     api("com.dorkbox:TweenEngine:8.3")
-
-    // add compile utils to dependencies
-    implementation(files((tasks["compileUtils"] as JavaCompile).outputs))
+    implementation("com.dorkbox:Utilities:1.1")
 }
 
 ///////////////////////////////
