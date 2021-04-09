@@ -26,10 +26,6 @@ gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS   // always show th
 gradle.startParameter.warningMode = WarningMode.All
 
 plugins {
-    java
-    signing
-    `maven-publish`
-
     id("com.dorkbox.Licensing") version "2.5.5"
     id("com.dorkbox.VersionUpdate") version "2.3"
     id("com.dorkbox.GradleUtils") version "1.17"
