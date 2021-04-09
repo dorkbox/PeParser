@@ -6,12 +6,6 @@
    Windows PE (Portable Executable) file parser for Java 8+
 
    Extra license information
-     - jOOU - Unsigned Numbers for Java - 
-       [The Apache Software License, Version 2.0]
-       https://github.com/jOOQ/jOOU
-       Copyright 2013
-         Lukas Eder, lukas.eder@gmail.com
-
      - ByteUtilties - Byte manipulation and Unsigned Number Utilities
        [The Apache Software License, Version 2.0]
        https://git.dorkbox.com/dorkbox/ByteUtilities
