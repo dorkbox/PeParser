@@ -15,9 +15,9 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UInteger;
-import dorkbox.util.bytes.ULong;
+import dorkbox.bytes.UInteger;
+import dorkbox.bytes.ULong;
+import dorkbox.os.OS;
 import dorkbox.peParser.misc.ImageBaseType;
 
 public class ImageBase_Wide extends ByteDefinition<ULong> {

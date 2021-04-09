@@ -15,8 +15,9 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UShort;
+
+import dorkbox.bytes.UShort;
+import dorkbox.os.OS;
 
 public class WORD extends ByteDefinition<UShort> {
 

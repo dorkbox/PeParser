@@ -15,8 +15,9 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.ULong;
+
+import dorkbox.bytes.ULong;
+import dorkbox.os.OS;
 
 public class DWORD_WIDE extends ByteDefinition<ULong> {
 

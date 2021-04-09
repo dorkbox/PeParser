@@ -15,10 +15,10 @@
  */
 package dorkbox.peParser.headers.flags;
 
-import dorkbox.util.bytes.UShort;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import dorkbox.bytes.UShort;
 
 public enum Characteristics {
 

@@ -15,7 +15,7 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
+import dorkbox.os.OS;
 
 public class HeaderDefinition extends ByteDefinition<String> {
 

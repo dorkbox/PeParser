@@ -15,8 +15,8 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UShort;
+import dorkbox.bytes.UShort;
+import dorkbox.os.OS;
 import dorkbox.peParser.headers.flags.Characteristics;
 
 public class CoffCharacteristics extends ByteDefinition<Characteristics[]> {

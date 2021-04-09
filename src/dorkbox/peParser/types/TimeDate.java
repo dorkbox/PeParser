@@ -17,8 +17,8 @@ package dorkbox.peParser.types;
 
 import java.util.Date;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UInteger;
+import dorkbox.bytes.UInteger;
+import dorkbox.os.OS;
 
 public class TimeDate extends ByteDefinition<Date> {
 

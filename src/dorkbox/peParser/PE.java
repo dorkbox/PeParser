@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 
+import dorkbox.os.OS;
 import dorkbox.peParser.headers.COFFFileHeader;
 import dorkbox.peParser.headers.Header;
 import dorkbox.peParser.headers.OptionalHeader;
@@ -35,7 +36,6 @@ import dorkbox.peParser.headers.resources.ResourceDirectoryHeader;
 import dorkbox.peParser.misc.DirEntry;
 import dorkbox.peParser.types.ByteDefinition;
 import dorkbox.peParser.types.ImageDataDir;
-import dorkbox.util.OS;
 
 public class PE {
     // info from:
@@ -54,6 +54,11 @@ public class PE {
 
     private static final int PE_OFFSET_LOCATION = 0x3c;
     private static final byte[] PE_SIG = "PE\0\0".getBytes();
+
+    static {
+        // Add this project to the updates system, which verifies this class + UUID + version information
+        dorkbox.updates.Updates.INSTANCE.add(PE.class, "5f5fafe156ba4e8f94c28f0c283aa509", getVersion());
+    }
 
     // TODO: should use an input stream to load header info, instead of the entire thing!
     public ByteArray fileBytes = null;

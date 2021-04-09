@@ -18,7 +18,7 @@ package dorkbox.peParser.headers.flags;
 import java.util.ArrayList;
 import java.util.List;
 
-import dorkbox.util.bytes.UShort;
+import dorkbox.bytes.UShort;
 
 public enum DllCharacteristicsType {
     IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE("40", "DLL can be relocated at load time."),

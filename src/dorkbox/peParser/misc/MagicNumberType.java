@@ -15,7 +15,7 @@
  */
 package dorkbox.peParser.misc;
 
-import dorkbox.util.bytes.UShort;
+import dorkbox.bytes.UShort;
 
 public enum MagicNumberType {
     NONE("", "ERROR, unable to recognize magic number"),

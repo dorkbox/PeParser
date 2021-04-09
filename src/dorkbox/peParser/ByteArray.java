@@ -17,12 +17,13 @@ package dorkbox.peParser;
 
 import java.io.ByteArrayInputStream;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.LittleEndian;
-import dorkbox.util.bytes.UByte;
-import dorkbox.util.bytes.UInteger;
-import dorkbox.util.bytes.ULong;
-import dorkbox.util.bytes.UShort;
+import dorkbox.bytes.LittleEndian;
+import dorkbox.bytes.UByte;
+import dorkbox.bytes.UInteger;
+import dorkbox.bytes.ULong;
+import dorkbox.bytes.UShort;
+import dorkbox.os.OS;
+
 
 public class ByteArray extends ByteArrayInputStream {
 
@@ -35,25 +36,29 @@ public class ByteArray extends ByteArrayInputStream {
         return new String(copyBytes(length), OS.US_ASCII).trim();
     }
 
-    public ULong readULong(int length) {
+    public
+    ULong readULong(int length) {
         ULong result = LittleEndian.ULong_.from(this.buf, this.pos, length);
         this.pos += length;
         return result;
     }
 
-    public UInteger readUInt(int length) {
+    public
+    UInteger readUInt(int length) {
         UInteger result = LittleEndian.UInt_.from(this.buf, this.pos, length);
         this.pos += length;
         return result;
     }
 
-    public UShort readUShort(int length) {
+    public
+    UShort readUShort(int length) {
         UShort result = LittleEndian.UShort_.from(this.buf, this.pos, length);
         this.pos += length;
         return result;
     }
 
-    public UByte readUByte() {
+    public
+    UByte readUByte() {
         UByte b = UByte.valueOf(this.buf[this.pos]);
         this.pos++;
         return b;

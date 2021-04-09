@@ -15,9 +15,9 @@
  */
 package dorkbox.peParser.types;
 
+import dorkbox.bytes.UShort;
+import dorkbox.os.OS;
 import dorkbox.peParser.misc.SubsystemType;
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UShort;
 
 public class Subsystem extends ByteDefinition<SubsystemType> {
 

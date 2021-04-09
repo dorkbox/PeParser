@@ -15,10 +15,12 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.peParser.misc.ResourceTypes;
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UInteger;
+import java.nio.charset.StandardCharsets;
+
+import dorkbox.bytes.UInteger;
+import dorkbox.os.OS;
 import dorkbox.peParser.ByteArray;
+import dorkbox.peParser.misc.ResourceTypes;
 
 public class ResourceDirName extends ByteDefinition<String> {
 
@@ -73,7 +75,7 @@ public class ResourceDirName extends ByteDefinition<String> {
 
             // go back
             bytes.seek(savedPosition);
-            this.value = new String(buff, OS.UTF_16LE).trim();
+            this.value = new String(buff, StandardCharsets.UTF_16LE).trim();
         } else {
             //
             // High bit is 0

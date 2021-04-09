@@ -15,7 +15,7 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
+import dorkbox.os.OS;
 import dorkbox.peParser.ByteArray;
 
 public class AsciiString extends ByteDefinition<String> {

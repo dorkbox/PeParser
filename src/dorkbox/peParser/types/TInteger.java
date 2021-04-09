@@ -15,8 +15,9 @@
  */
 package dorkbox.peParser.types;
 
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UInteger;
+
+import dorkbox.bytes.UInteger;
+import dorkbox.os.OS;
 
 public class TInteger extends ByteDefinition<UInteger> {
 

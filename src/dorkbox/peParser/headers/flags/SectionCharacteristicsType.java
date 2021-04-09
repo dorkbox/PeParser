@@ -18,7 +18,7 @@ package dorkbox.peParser.headers.flags;
 import java.util.ArrayList;
 import java.util.List;
 
-import dorkbox.util.bytes.UInteger;
+import dorkbox.bytes.UInteger;
 
 public enum SectionCharacteristicsType {
 

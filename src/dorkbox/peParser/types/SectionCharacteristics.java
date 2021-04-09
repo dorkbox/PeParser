@@ -15,9 +15,9 @@
  */
 package dorkbox.peParser.types;
 
+import dorkbox.bytes.UInteger;
+import dorkbox.os.OS;
 import dorkbox.peParser.headers.flags.SectionCharacteristicsType;
-import dorkbox.util.OS;
-import dorkbox.util.bytes.UInteger;
 
 public class SectionCharacteristics extends ByteDefinition<SectionCharacteristicsType[]> {
 

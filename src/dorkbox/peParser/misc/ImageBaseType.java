@@ -15,7 +15,7 @@
  */
 package dorkbox.peParser.misc;
 
-import dorkbox.util.bytes.UInteger;
+import dorkbox.bytes.UInteger;
 
 public enum ImageBaseType {
     IMAGE_BASE_DEFAULT(0x10000000L, "DLL default"),

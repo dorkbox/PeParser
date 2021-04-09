@@ -15,7 +15,7 @@
  */
 package dorkbox.peParser.misc;
 
-import dorkbox.util.bytes.UShort;
+import dorkbox.bytes.UShort;
 
 public enum SubsystemType {
     IMAGE_SYSTEM_UNKNOWN(0, "unknown subsystem"),

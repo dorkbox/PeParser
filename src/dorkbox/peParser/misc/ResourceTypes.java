@@ -15,7 +15,7 @@
  */
 package dorkbox.peParser.misc;
 
-import dorkbox.util.bytes.UInteger;
+import dorkbox.bytes.UInteger;
 
 public enum ResourceTypes {
     N_1("???_0"),
