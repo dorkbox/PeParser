@@ -63,12 +63,6 @@ licensing {
         author(Extras.vendor)
         url(Extras.url)
         note(Extras.description)
-
-        extra("jOOU - Unsigned Numbers for Java", License.APACHE_2) {
-            it.copyright(2013)
-            it.author("Lukas Eder, lukas.eder@gmail.com")
-            it.url("https://github.com/jOOQ/jOOU")
-        }
     }
 }
 
