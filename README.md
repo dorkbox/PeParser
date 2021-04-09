@@ -9,7 +9,7 @@ This library can access meta-data information and details from within the PE fil
 
 Windows PE format and details: http://msdn.microsoft.com/en-us/library/ms809762.aspx
 
-- This is for cross-platform use, specifically - linux 32/64, mac 32/64, and windows 32/64. Java 6+
+- This is for cross-platform use, specifically - linux 32/64, mac 32/64, and windows 32/64. Java 8+
 
 
 &nbsp; 
@@ -23,19 +23,19 @@ Maven Info
     <dependency>
       <groupId>com.dorkbox</groupId>
       <artifactId>PeParser</artifactId>
-      <version>2.13</version>
+      <version>3.0</version>
     </dependency>
 </dependencies>
 ```
 
 Gradle Info
 ---------
-````
+```
 dependencies {
     ...
-    compile "com.dorkbox:PeParser:2.13"
+    implementation("com.dorkbox:PeParser:3.0")
 }
-````
+```
 
 Or if you don't want to use Maven, you can access the files directly here:  
 https://repo1.maven.org/maven2/com/dorkbox/PeParser/  

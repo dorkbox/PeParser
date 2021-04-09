@@ -42,7 +42,7 @@ object Extras {
     // set for the project
     const val description = "Windows PE (Portable Executable) file parser for Java 8+"
     const val group = "com.dorkbox"
-    const val version = "2.14"
+    const val version = "3.0"
 
     // set as project.ext
     const val name = "PeParser"
