@@ -3,7 +3,7 @@
    https://git.dorkbox.com/dorkbox/PeParser
    Copyright 2021
      Dorkbox LLC
-   Windows PE (Portable Executable) file parser for Java 6+
+   Windows PE (Portable Executable) file parser for Java 8+
 
    Extra license information
      - jOOU - Unsigned Numbers for Java - 
