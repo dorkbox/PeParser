@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dorkbox.peParser.misc
 
-import dorkbox.peParser.misc.MachineTypeType
-import dorkbox.peParser.misc.MagicNumberType
-import dorkbox.peParser.misc.ResourceTypes
-import dorkbox.peParser.misc.SubsystemType
+package dorkbox.peParser;
+
+/**
+ * Required for intellij to not complain regarding `module-info` for a multi-release jar.
+ * This file is completely ignored by the gradle build process
+ */
+public
+class EmptyClass {}

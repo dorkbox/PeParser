@@ -1,21 +1,14 @@
-module dorkbox.jna {
-    exports dorkbox.jna;
-    exports dorkbox.jna.rendering;
-    exports dorkbox.jna.linux;
-    exports dorkbox.jna.linux.structs;
-    exports dorkbox.jna.macos;
-    exports dorkbox.jna.macos.cocoa;
-    exports dorkbox.jna.macos.foundation;
-    exports dorkbox.jna.windows;
-    exports dorkbox.jna.windows.structs;
+module dorkbox.pe {
+    exports dorkbox.peParser;
+    exports dorkbox.peParser.headers;
+    exports dorkbox.peParser.misc;
+    exports dorkbox.peParser.types;
 
+    requires transitive dorkbox.collections;
+    requires transitive dorkbox.byteUtils;
+    requires transitive dorkbox.hexUtils;
     requires transitive dorkbox.updates;
-    requires transitive dorkbox.os;
+    requires transitive dorkbox.utilities;
 
     requires transitive kotlin.stdlib;
-
-    requires static com.sun.jna;
-    requires static com.sun.jna.platform;
-
-    requires static org.slf4j;
 }

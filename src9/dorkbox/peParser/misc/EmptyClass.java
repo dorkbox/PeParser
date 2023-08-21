@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dorkbox.jna;
+package dorkbox.peParser.misc;
 
 /**
  * Required for intellij to not complain regarding `module-info` for a multi-release jar.
