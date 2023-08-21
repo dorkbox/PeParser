@@ -38,7 +38,7 @@ class PE {
         /**
          * Gets the version number.
          */
-        val version = "3.2"
+        val version = "3.3"
         private const val PE_OFFSET_LOCATION = 0x3c
         private val PE_SIG = "PE\u0000\u0000".toByteArray()
 
@@ -142,12 +142,15 @@ class PE {
     private fun fromInputStream(inputStream: InputStream) {
         val baos = ByteArrayOutputStream(8192)
         val buffer = ByteArray(4096)
-        var read = 0
+
+        var read: Int
         while (inputStream.read(buffer).also { read = it } > 0) {
             baos.write(buffer, 0, read)
         }
+
         baos.flush()
         inputStream.close()
+
         val bytes = baos.toByteArray()
         invalidFile = bytes.size == 0
         fileBytes = ByteArray(bytes)
@@ -227,7 +230,7 @@ class PE {
             "PE signature not found. The given file is not a PE file. $OS.LINE_SEPARATOR"
         }
     private val pEOffset: Int
-        private get() {
+        get() {
             fileBytes!!.mark()
             fileBytes!!.seek(PE_OFFSET_LOCATION)
             val read: Int = fileBytes!!.readUShort(2).toInt()
@@ -269,15 +272,18 @@ class PE {
                 if (mainEntry.type === DirEntry.RESOURCE) {
                     val directoryEntries = LinkedList<ResourceDirectoryEntry?>()
                     val resourceEntries = LinkedList<ResourceDirectoryEntry?>()
-                    var entry: ResourceDirectoryEntry? = null
                     val root = mainEntry.data as ResourceDirectoryHeader?
+
                     for (rootEntry in root!!.entries) {
                         collect(directoryEntries, resourceEntries, rootEntry)
                         directoryEntries.add(rootEntry)
                     }
+
+                    var entry: ResourceDirectoryEntry?
                     while (directoryEntries.poll().also { entry = it } != null) {
                         collect(directoryEntries, resourceEntries, entry)
                     }
+
                     var largest: ResourceDataEntry? = null
                     for (resourceEntry in resourceEntries) {
                         val dataEntry = resourceEntry!!.resourceDataEntry
