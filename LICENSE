@@ -1,40 +1,305 @@
  - PeParser - 
    [The Apache Software License, Version 2.0]
    https://git.dorkbox.com/dorkbox/PeParser
-   Copyright 2021
+   Copyright 2023
      Dorkbox LLC
    Windows PE (Portable Executable) file parser for Java 8+
 
    Extra license information
-     - ByteUtilties - Byte manipulation and Unsigned Number Utilities
+     - Kotlin - 
        [The Apache Software License, Version 2.0]
-       https://git.dorkbox.com/dorkbox/ByteUtilities
-       Copyright 2021
+       https://github.com/JetBrains/kotlin
+       Copyright 2020
+         JetBrains s.r.o. and Kotlin Programming Language contributors
+       Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+       See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+     - Collections - Collection types and utilities to enhance the default collections.
+       [The Apache Software License, Version 2.0]
+       https://git.dorkbox.com/dorkbox/Collections
+       Copyright 2023
          Dorkbox LLC
 
        Extra license information
-         - Byte Utils (UByte, UInteger, ULong, Unsigned, UNumber, UShort) - 
-           [The Apache Software License, Version 2.0]
-           https://github.com/jOOQ/jOOQ/tree/master/jOOQ/src/main/java/org/jooq/types
-           Copyright 2017
-             Data Geekery GmbH (http://www.datageekery.com)
-             Lukas Eder
-             Ed Schaller
-             Jens Nerche
-             Ivan Sokolov
+         - Bias, BinarySearch - 
+           [MIT License]
+           https://git.dorkbox.com/dorkbox/Collections
+           https://github.com/timboudreau/util
+           Copyright 2013
+             Tim Boudreau
 
+         - ConcurrentEntry - 
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Collections
+           Copyright 2016
+             bennidi
+             dorkbox
+
+         - Collection Utilities (Array, ArrayMap, BooleanArray, ByteArray, CharArray, FloatArray, IdentityMap, IntArray, IntFloatMap, IntIntMap, IntMap, IntSet, LongArray, LongMap, ObjectFloatMap, ObjectIntMap, ObjectMap, ObjectSet, OrderedMap, OrderedSet) - 
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Collections
+           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
+           Copyright 2011
+             LibGDX
+             Mario Zechner (badlogicgames@gmail.com)
+             Nathan Sweet (nathan.sweet@gmail.com)
+
+         - Predicate - 
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Collections
+           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
+           Copyright 2011
+             LibGDX
+             Mario Zechner (badlogicgames@gmail.com)
+             Nathan Sweet (nathan.sweet@gmail.com)
+             xoppa
+
+         - Select, QuickSelect - 
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Collections
+           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
+           Copyright 2011
+             LibGDX
+             Mario Zechner (badlogicgames@gmail.com)
+             Nathan Sweet (nathan.sweet@gmail.com)
+             Jon Renner
+
+         - Kotlin - 
+           [The Apache Software License, Version 2.0]
+           https://github.com/JetBrains/kotlin
+           Copyright 2020
+             JetBrains s.r.o. and Kotlin Programming Language contributors
+           Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+           See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+         - Updates - Software Update Management
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Updates
+           Copyright 2021
+             Dorkbox LLC
+
+           Extra license information
+             - Kotlin - 
+               [The Apache Software License, Version 2.0]
+               https://github.com/JetBrains/kotlin
+               Copyright 2020
+                 JetBrains s.r.o. and Kotlin Programming Language contributors
+               Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+               See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+     - ByteUtilities - Byte manipulation and SHA/xxHash utilities
+       [The Apache Software License, Version 2.0]
+       https://git.dorkbox.com/dorkbox/ByteUtilities
+       Copyright 2023
+         Dorkbox LLC
+
+       Extra license information
          - Kryo Serialization - 
            [BSD 3-Clause License]
            https://github.com/EsotericSoftware/kryo
            Copyright 2020
              Nathan Sweet
 
+         - Base58 - 
+           [The Apache Software License, Version 2.0]
+           https://bitcoinj.github.io
+           https://github.com/komputing/KBase58
+           Copyright 2018
+             Google Inc
+             Andreas Schildbach
+             ligi
+
+         - Kotlin - 
+           [The Apache Software License, Version 2.0]
+           https://github.com/JetBrains/kotlin
+           Copyright 2020
+             JetBrains s.r.o. and Kotlin Programming Language contributors
+           Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+           See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
          - Netty - An event-driven asynchronous network application framework
            [The Apache Software License, Version 2.0]
            https://netty.io
-           Copyright 2021
+           Copyright 2023
              The Netty Project
              Contributors. See source NOTICE
+
+         - Kryo - Fast and efficient binary object graph serialization framework for Java
+           [BSD 3-Clause License]
+           https://github.com/EsotericSoftware/kryo
+           Copyright 2023
+             Nathan Sweet
+
+           Extra license information
+             - ReflectASM - 
+               [BSD 3-Clause License]
+               https://github.com/EsotericSoftware/reflectasm
+                 Nathan Sweet
+
+             - Objenesis - 
+               [The Apache Software License, Version 2.0]
+               https://github.com/easymock/objenesis
+                 Objenesis Team and all contributors
+
+             - MinLog-SLF4J - 
+               [BSD 3-Clause License]
+               https://github.com/EsotericSoftware/minlog
+                 Nathan Sweet
+
+         - LZ4 and xxHash - LZ4 compression for Java, based on Yann Collet's work
+           [The Apache Software License, Version 2.0]
+           https://github.com/lz4/lz4
+           Copyright 2023
+             Yann Collet
+             Adrien Grand
+
+         - XZ for Java - Complete implementation of XZ data compression in pure Java
+           [Public Domain, per Creative Commons CC0]
+           https://tukaani.org/xz/java.html
+           Copyright 2023
+             Lasse Collin
+             Igor Pavlov
+
+         - Updates - Software Update Management
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Updates
+           Copyright 2021
+             Dorkbox LLC
+
+           Extra license information
+             - Kotlin - 
+               [The Apache Software License, Version 2.0]
+               https://github.com/JetBrains/kotlin
+               Copyright 2020
+                 JetBrains s.r.o. and Kotlin Programming Language contributors
+               Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+               See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+     - HexUtilities - Hex conversion utilities for Strings, Collections, ByteArrays, Unsigned numbers, and numbers
+       [The Apache Software License, Version 2.0]
+       https://git.dorkbox.com/dorkbox/HexUtilities
+       Copyright 2023
+         Dorkbox LLC
+
+       Extra license information
+         - Hex utility methods - 
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/HexUtilities
+           https://netty.io
+           https://github.com/netty/netty/blob/4.1/buffer/src/main/java/io/netty/buffer/ByteBufUtil.java
+           Copyright 2014
+             The Netty Project
+
+         - Kotlin - 
+           [The Apache Software License, Version 2.0]
+           https://github.com/JetBrains/kotlin
+           Copyright 2020
+             JetBrains s.r.o. and Kotlin Programming Language contributors
+           Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+           See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+         - ByteUtilities - Byte manipulation and SHA/xxHash utilities
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/ByteUtilities
+           Copyright 2023
+             Dorkbox LLC
+
+           Extra license information
+             - Kryo Serialization - 
+               [BSD 3-Clause License]
+               https://github.com/EsotericSoftware/kryo
+               Copyright 2020
+                 Nathan Sweet
+
+             - Base58 - 
+               [The Apache Software License, Version 2.0]
+               https://bitcoinj.github.io
+               https://github.com/komputing/KBase58
+               Copyright 2018
+                 Google Inc
+                 Andreas Schildbach
+                 ligi
+
+             - Kotlin - 
+               [The Apache Software License, Version 2.0]
+               https://github.com/JetBrains/kotlin
+               Copyright 2020
+                 JetBrains s.r.o. and Kotlin Programming Language contributors
+               Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+               See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+             - Netty - An event-driven asynchronous network application framework
+               [The Apache Software License, Version 2.0]
+               https://netty.io
+               Copyright 2023
+                 The Netty Project
+                 Contributors. See source NOTICE
+
+             - Kryo - Fast and efficient binary object graph serialization framework for Java
+               [BSD 3-Clause License]
+               https://github.com/EsotericSoftware/kryo
+               Copyright 2023
+                 Nathan Sweet
+
+               Extra license information
+                 - ReflectASM - 
+                   [BSD 3-Clause License]
+                   https://github.com/EsotericSoftware/reflectasm
+                     Nathan Sweet
+
+                 - Objenesis - 
+                   [The Apache Software License, Version 2.0]
+                   https://github.com/easymock/objenesis
+                     Objenesis Team and all contributors
+
+                 - MinLog-SLF4J - 
+                   [BSD 3-Clause License]
+                   https://github.com/EsotericSoftware/minlog
+                     Nathan Sweet
+
+             - LZ4 and xxHash - LZ4 compression for Java, based on Yann Collet's work
+               [The Apache Software License, Version 2.0]
+               https://github.com/lz4/lz4
+               Copyright 2023
+                 Yann Collet
+                 Adrien Grand
+
+             - XZ for Java - Complete implementation of XZ data compression in pure Java
+               [Public Domain, per Creative Commons CC0]
+               https://tukaani.org/xz/java.html
+               Copyright 2023
+                 Lasse Collin
+                 Igor Pavlov
+
+             - Updates - Software Update Management
+               [The Apache Software License, Version 2.0]
+               https://git.dorkbox.com/dorkbox/Updates
+               Copyright 2021
+                 Dorkbox LLC
+
+               Extra license information
+                 - Kotlin - 
+                   [The Apache Software License, Version 2.0]
+                   https://github.com/JetBrains/kotlin
+                   Copyright 2020
+                     JetBrains s.r.o. and Kotlin Programming Language contributors
+                   Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+                   See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+         - Updates - Software Update Management
+           [The Apache Software License, Version 2.0]
+           https://git.dorkbox.com/dorkbox/Updates
+           Copyright 2021
+             Dorkbox LLC
+
+           Extra license information
+             - Kotlin - 
+               [The Apache Software License, Version 2.0]
+               https://github.com/JetBrains/kotlin
+               Copyright 2020
+                 JetBrains s.r.o. and Kotlin Programming Language contributors
+               Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+               See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
 
      - Updates - Software Update Management
        [The Apache Software License, Version 2.0]
@@ -51,16 +316,10 @@
            Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
            See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
 
-         - PropertyLoader - Property annotation and loader for fields
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/PropertyLoader
-           Copyright 2021
-             Dorkbox LLC
-
      - Utilities - Utilities for use within Java projects
        [The Apache Software License, Version 2.0]
        https://git.dorkbox.com/dorkbox/Utilities
-       Copyright 2021
+       Copyright 2023
          Dorkbox LLC
 
        Extra license information
@@ -71,23 +330,6 @@
              Sean Luke
              Michael Lecuyer (portions Copyright 1993
 
-         - FileUtil (code from FilenameUtils.java for normalize + dependencies) - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           http://commons.apache.org/proper/commons-io/
-           Copyright 2013
-             The Apache Software Foundation
-             Kevin A. Burton
-             Scott Sanders
-             Daniel Rall
-             Christoph.Reck
-             Peter Donald
-             Jeff Turner
-             Matthew Hawthorne
-             Martin Cooper
-             Jeremias Maerki
-             Stephen Colebourne
-
          - FastThreadLocal - 
            [BSD 3-Clause License]
            https://git.dorkbox.com/dorkbox/Utilities
@@ -97,218 +339,60 @@
              Lightweight Java Game Library Project
              Riven
 
-         - Base64Fast - 
-           [BSD 3-Clause License]
-           https://git.dorkbox.com/dorkbox/Utilities
-           http://migbase64.sourceforge.net/
-           Copyright 2004
-             Mikael Grev, MiG InfoCom AB. (base64@miginfocom.com)
-
-         - BCrypt - 
-           [BSD 2-Clause "Simplified" or "FreeBSD" license]
-           https://git.dorkbox.com/dorkbox/Utilities
-           http://www.mindrot.org/projects/jBCrypt
-           Copyright 2006
-             Damien Miller (djm@mindrot.org)
-           GWT modified version
-
-         - Bias, BinarySearch - 
-           [MIT License]
-           https://git.dorkbox.com/dorkbox/Utilities
-           https://github.com/timboudreau/util
-           Copyright 2013
-             Tim Boudreau
-
-         - ConcurrentEntry - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           Copyright 2016
-             bennidi
-             dorkbox
-
-         - Collection Utilities (Array, ArrayMap, BooleanArray, ByteArray, CharArray, FloatArray, IdentityMap, IntArray, IntFloatMap, IntIntMap, IntMap, IntSet, LongArray, LongMap, ObjectFloatMap, ObjectIntMap, ObjectMap, ObjectSet, OrderedMap, OrderedSet) - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
-           Copyright 2011
-             LibGDX
-             Mario Zechner (badlogicgames@gmail.com)
-             Nathan Sweet (nathan.sweet@gmail.com)
-
-         - Predicate - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
-           Copyright 2011
-             LibGDX
-             Mario Zechner (badlogicgames@gmail.com)
-             Nathan Sweet (nathan.sweet@gmail.com)
-             xoppa
-
-         - Select, QuickSelect - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
-           Copyright 2011
-             LibGDX
-             Mario Zechner (badlogicgames@gmail.com)
-             Nathan Sweet (nathan.sweet@gmail.com)
-             Jon Renner
-
-         - TimSort, ComparableTimSort - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           https://github.com/libgdx/libgdx/blob/master/gdx/src/com/badlogic/gdx/utils
-           Copyright 2008
-             The Android Open Source Project
-
-         - Modified hex conversion utility methods - 
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Utilities
-           https://netty.io
-           Copyright 2014
-             The Netty Project
-
          - Retrofit - A type-safe HTTP client for Android and Java
            [The Apache Software License, Version 2.0]
            https://github.com/square/retrofit
            Copyright 2020
              Square, Inc
 
-         - JNA - Simplified native library access for Java.
+         - Resource Listing - Listing the contents of a resource directory
            [The Apache Software License, Version 2.0]
-           https://github.com/twall/jna
-           Copyright 2021
-             Timothy Wall
+           https://www.uofr.net/~greg/java/get-resource-listing.html
+           Copyright 2017
+             Greg Briggs
 
-         - JNA-Platform - Mappings for a number of commonly used platform functions
+         - CommonUtils - Common utility extension functions for kotlin
            [The Apache Software License, Version 2.0]
-           https://github.com/twall/jna
-           Copyright 2021
-             Timothy Wall
+           https://www.pronghorn.tech 
+           Copyright 2017
+             Pronghorn Technology LLC
+             Dorkbox LLC
+
+         - Kotlin Coroutine CountDownLatch - 
+           [The Apache Software License, Version 2.0]
+           https://github.com/Kotlin/kotlinx.coroutines/issues/59
+           https://github.com/venkatperi/kotlin-coroutines-lib
+           Copyright 2018
+             Venkat Peri
+
+         - kotlinx.coroutines - Library support for Kotlin coroutines with multiplatform support
+           [The Apache Software License, Version 2.0]
+           https://github.com/Kotlin/kotlinx.coroutines
+           Copyright 2023
+             JetBrains s.r.o.
 
          - Java Uuid Generator - A set of Java classes for working with UUIDs
            [The Apache Software License, Version 2.0]
            https://github.com/cowtowncoder/java-uuid-generator
-           Copyright 2021
+           Copyright 2023
              Tatu Saloranta (tatu.saloranta@iki.fi)
              Contributors. See source release-notes/CREDITS
 
-         - Netty - An event-driven asynchronous network application framework
+         - Kotlin - 
            [The Apache Software License, Version 2.0]
-           https://netty.io
-           Copyright 2021
-             The Netty Project
-             Contributors. See source NOTICE
+           https://github.com/JetBrains/kotlin
+           Copyright 2020
+             JetBrains s.r.o. and Kotlin Programming Language contributors
+           Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+           See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
 
-         - Bouncy Castle Crypto - Lightweight cryptography API and JCE Extension
+         - OS - Information about the system, Java runtime, OS, Window Manager, and Desktop Environment.
            [The Apache Software License, Version 2.0]
-           http://www.bouncycastle.org
-           Copyright 2021
-             The Legion of the Bouncy Castle Inc
-
-         - Lightweight Java Game Library - Java library that enables cross-platform access to popular native APIs
-           [BSD 3-Clause License]
-           https://github.com/LWJGL/lwjgl3
-           Copyright 2021
-             Lightweight Java Game Library
-
-         - TypeTools - A simple, zero-dependency library for working with types. Supports Java 1.6+ and Android.
-           [The Apache Software License, Version 2.0]
-           https://github.com/jhalterman/typetools
-           Copyright 2021
-             Jonathan Halterman and friends
-
-         - SLF4J - Simple facade or abstraction for various logging frameworks
-           [MIT License]
-           http://www.slf4j.org
-           Copyright 2021
-             QOS.ch
-
-         - XZ for Java - Complete implementation of XZ data compression in pure Java
-           [Public Domain, per Creative Commons CC0]
-           https://tukaani.org/xz/java.html
-           Copyright 2021
-             Lasse Collin
-             Igor Pavlov
-
-         - Executor - Shell, JVM, and SSH command execution on Linux, MacOS, or Windows for Java 8+
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/Executor
-           Copyright 2021
+           https://git.dorkbox.com/dorkbox/OS
+           Copyright 2023
              Dorkbox LLC
 
            Extra license information
-             - ZT Process Executor - 
-               [The Apache Software License, Version 2.0]
-               https://github.com/zeroturnaround/zt-exec
-               Copyright 2014
-                 ZeroTurnaround LLC
-
-             - Apache Commons Exec - 
-               [The Apache Software License, Version 2.0]
-               https://commons.apache.org/proper/commons-exec/
-               Copyright 2014
-                 The Apache Software Foundation
-
-             - Logback - Logback is a logging framework for Java applications
-               [The Apache Software License, Version 2.0]
-               http://logback.qos.ch
-               Copyright 2021
-                 QOS.ch
-
-             - kotlinx.coroutines - Library support for Kotlin coroutines with multiplatform support
-               [The Apache Software License, Version 2.0]
-               https://github.com/Kotlin/kotlinx.coroutines
-               Copyright 2021
-                 JetBrains s.r.o.
-
-             - kotlin-logging - Lightweight logging framework for Kotlin
-               [The Apache Software License, Version 2.0]
-               https://github.com/MicroUtils/kotlin-logging
-               Copyright 2021
-                 Ohad Shai
-
-             - SLF4J - Simple facade or abstraction for various logging frameworks
-               [MIT License]
-               http://www.slf4j.org
-               Copyright 2021
-                 QOS.ch
-
-             - SSHJ - SSHv2 library for Java
-               [The Apache Software License, Version 2.0]
-               https://github.com/hierynomus/sshj
-               Copyright 2021
-                 Jeroen van Erp
-                 SSHJ Contributors
-
-               Extra license information
-                 - Apache MINA - 
-                   [The Apache Software License, Version 2.0]
-                   https://mina.apache.org/sshd-project/
-                     The Apache Software Foundation
-
-                 - Apache Commons-Net - 
-                   [The Apache Software License, Version 2.0]
-                   https://commons.apache.org/proper/commons-net/
-                     The Apache Software Foundation
-
-                 - JZlib - 
-                   [The Apache Software License, Version 2.0]
-                   http://www.jcraft.com/jzlib
-                     Atsuhiko Yamanaka
-                     JCraft, Inc.
-
-                 - Bouncy Castle Crypto - 
-                   [The Apache Software License, Version 2.0]
-                   http://www.bouncycastle.org
-                     The Legion of the Bouncy Castle Inc
-
-                 - ed25519-java - 
-                   [Public Domain, per Creative Commons CC0]
-                   https://github.com/str4d/ed25519-java
-                     https://github.com/str4d
-
              - Kotlin - 
                [The Apache Software License, Version 2.0]
                https://github.com/JetBrains/kotlin
@@ -317,33 +401,32 @@
                Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
                See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
 
-         - SwtJavaFx - Swt and JavaFx Utilities
+             - Updates - Software Update Management
+               [The Apache Software License, Version 2.0]
+               https://git.dorkbox.com/dorkbox/Updates
+               Copyright 2021
+                 Dorkbox LLC
+
+               Extra license information
+                 - Kotlin - 
+                   [The Apache Software License, Version 2.0]
+                   https://github.com/JetBrains/kotlin
+                   Copyright 2020
+                     JetBrains s.r.o. and Kotlin Programming Language contributors
+                   Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+                   See: https://github.com/JetBrains/kotlin/blob/master/license/README.md
+
+         - Updates - Software Update Management
            [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/SwtJavaFx
+           https://git.dorkbox.com/dorkbox/Updates
            Copyright 2021
              Dorkbox LLC
 
            Extra license information
-             - Eclipse Platform - Frameworks and common services to support the use of Eclipse and it's tools (SWT)
-               [Eclipse Public License (EPL)]
-               https://projects.eclipse.org/projects/eclipse.platform
-               Copyright 2021
-                 The Eclipse Foundation, Inc.
-
-             - OpenJFX - OpenJFX client application platform for desktop, mobile and embedded systems
-               [GNU General Public License, version 2, with the Classpath Exception]
-               https://github.com/openjdk/jfx
-               Copyright 2021
-                 Oracle and/or its affiliates
-
-             - SLF4J - Simple facade or abstraction for various logging frameworks
-               [MIT License]
-               http://www.slf4j.org
-               Copyright 2021
-                 QOS.ch
-
-         - PropertyLoader - Property annotation and loader for fields
-           [The Apache Software License, Version 2.0]
-           https://git.dorkbox.com/dorkbox/PropertyLoader
-           Copyright 2021
-             Dorkbox LLC
+             - Kotlin - 
+               [The Apache Software License, Version 2.0]
+               https://github.com/JetBrains/kotlin
+               Copyright 2020
+                 JetBrains s.r.o. and Kotlin Programming Language contributors
+               Kotlin Compiler, Test Data+Libraries, and Tools repository contain third-party code, to which different licenses may apply
+               See: https://github.com/JetBrains/kotlin/blob/master/license/README.md

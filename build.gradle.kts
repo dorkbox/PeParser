@@ -26,19 +26,19 @@ gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS   // always show th
 gradle.startParameter.warningMode = WarningMode.All
 
 plugins {
-    id("com.dorkbox.Licensing") version "2.5.5"
-    id("com.dorkbox.VersionUpdate") version "2.3"
-    id("com.dorkbox.GradleUtils") version "1.17"
-    id("com.dorkbox.GradlePublish") version "1.10"
+    id("com.dorkbox.GradleUtils") version "3.17"
+    id("com.dorkbox.Licensing") version "2.26"
+    id("com.dorkbox.VersionUpdate") version "2.8"
+    id("com.dorkbox.GradlePublish") version "1.18"
 
-    kotlin("jvm") version "1.4.32"
+    kotlin("jvm") version "1.9.0"
 }
 
 object Extras {
     // set for the project
     const val description = "Windows PE (Portable Executable) file parser for Java 8+"
     const val group = "com.dorkbox"
-    const val version = "3.1"
+    const val version = "3.2"
 
     // set as project.ext
     const val name = "PeParser"
@@ -46,16 +46,13 @@ object Extras {
     const val vendor = "Dorkbox LLC"
     const val vendorUrl = "https://dorkbox.com"
     const val url = "https://git.dorkbox.com/dorkbox/PeParser"
-
-    val buildDate = Instant.now().toString()
 }
 
 ///////////////////////////////
 /////  assign 'Extras'
 ///////////////////////////////
 GradleUtils.load("$projectDir/../../gradle.properties", Extras)
-GradleUtils.fixIntellijPaths()
-GradleUtils.defaultResolutionStrategy()
+GradleUtils.defaults()
 GradleUtils.compileConfiguration(JavaVersion.VERSION_1_8)
 
 licensing {
@@ -87,23 +84,19 @@ tasks.jar.get().apply {
         attributes["Specification-Vendor"] = Extras.vendor
 
         attributes["Implementation-Title"] = "${Extras.group}.${Extras.id}"
-        attributes["Implementation-Version"] = Extras.buildDate
+        attributes["Implementation-Version"] = GradleUtils.now()
         attributes["Implementation-Vendor"] = Extras.vendor
 
         attributes["Automatic-Module-Name"] = Extras.id
     }
 }
 
-repositories {
-    mavenLocal() // this must be first!
-    jcenter()
-}
-
-
 dependencies {
-    implementation("com.dorkbox:ByteUtilities:1.0")
-    implementation("com.dorkbox:Updates:1.0")
-    implementation("com.dorkbox:Utilities:1.9")
+    api("com.dorkbox:Collections:2.4")
+    api("com.dorkbox:ByteUtilities:2.0")
+    api("com.dorkbox:HexUtilities:1.1")
+    api("com.dorkbox:Updates:1.1")
+    api("com.dorkbox:Utilities:1.46")
 }
 
 publishToSonatype {
