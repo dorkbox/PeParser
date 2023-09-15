@@ -1,7 +1,7 @@
 PeParser
 =========
 
-###### [![Dorkbox](https://badge.dorkbox.com/dorkbox.svg "Dorkbox")](https://git.dorkbox.com/dorkbox/PeParser) [![Github](https://badge.dorkbox.com/github.svg "Github")](https://github.com/dorkbox/PeParser) [![Gitlab](https://badge.dorkbox.com/gitlab.svg "Gitlab")](https://gitlab.com/dorkbox/PeParser) [![Bitbucket](https://badge.dorkbox.com/bitbucket.svg "Bitbucket")](https://bitbucket.org/dorkbox/PeParser)
+###### [![Dorkbox](https://badge.dorkbox.com/dorkbox.svg "Dorkbox")](https://git.dorkbox.com/dorkbox/PeParser) [![Github](https://badge.dorkbox.com/github.svg "Github")](https://github.com/dorkbox/PeParser) [![Gitlab](https://badge.dorkbox.com/gitlab.svg "Gitlab")](https://gitlab.com/dorkbox/PeParser)
 
 Provides a light-weight way to parse and extract data from windows PE files, from Java.
 
