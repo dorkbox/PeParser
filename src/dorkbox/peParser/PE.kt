@@ -17,7 +17,6 @@
 package dorkbox.peParser
 
 import dorkbox.os.OS
-import dorkbox.peParser.PE
 import dorkbox.peParser.headers.*
 import dorkbox.peParser.headers.resources.ResourceDataEntry
 import dorkbox.peParser.headers.resources.ResourceDirectoryEntry
@@ -157,7 +156,7 @@ class PE {
 
         // initialize header info
         if (isPE) {
-            val offset = pEOffset + PE_SIG.size
+            val offset = PEOffset + PE_SIG.size
             fileBytes!!.seek(offset)
             coffHeader = COFFFileHeader(fileBytes!!)
             optionalHeader = OptionalHeader(fileBytes!!)
@@ -203,7 +202,7 @@ class PE {
     val info: String
         get() = if (isPE) {
             val b = StringBuilder()
-            b.append("PE signature offset: ").append(pEOffset).append(OS.LINE_SEPARATOR).append("PE signature correct: ").append("yes")
+            b.append("PE signature offset: ").append(PEOffset).append(OS.LINE_SEPARATOR).append("PE signature correct: ").append("yes")
                 .append(OS.LINE_SEPARATOR).append(OS.LINE_SEPARATOR).append("----------------").append(OS.LINE_SEPARATOR).append("COFF header info")
                 .append(OS.LINE_SEPARATOR).append("----------------").append(OS.LINE_SEPARATOR)
             for (bd in coffHeader!!.headers) {
@@ -229,7 +228,7 @@ class PE {
         else {
             "PE signature not found. The given file is not a PE file. $OS.LINE_SEPARATOR"
         }
-    private val pEOffset: Int
+    private val PEOffset: Int
         get() {
             fileBytes!!.mark()
             fileBytes!!.seek(PE_OFFSET_LOCATION)
@@ -245,7 +244,7 @@ class PE {
             var saved = -1
             return try {
                 // this can screw up if the length of the file is invalid...
-                val offset = pEOffset
+                val offset = PEOffset
                 saved = fileBytes!!.position()
 
                 // always have to start from zero if we ask this.
